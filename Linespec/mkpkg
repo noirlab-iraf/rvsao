@@ -1,0 +1,23 @@
+# File Rvsao/Linespec/mkpkg
+# April 22, 1998
+# RVSAO Linespec emission line spectrum creation
+ 
+$checkout librv.a ../bin
+$update	librv.a
+$checkin librv.a ../bin
+$exit
+
+librv.a:
+	t_linespec.x	<imhdr.h> <imio.h> <fset.h> rvsao.h rvsao.com sum.com
+	mkgauss.x
+	wtgauss.x
+	;
+# Jan 23 1997	Move T_SUMTEMP, ADDTEMP, and WRITETEMP from SAOTDC package
+# Mar 25 1997	Add task T_LINTEMP and subroutines MKGAUSS and WTGAUSS
+# Apr 21 1997	Add subroutine WLRANGE
+# Apr 29 1997	Change LINTEMP to LINESPEC and SUMTEMP to SUMSPEC
+# Oct  6 1997	Add smw.h to ADDSPEC dependencies
+
+# Apr 22 1998	Drop use of getim.com
+
+# Apr 26 2001	Separate SUMSPEC and LINESPEC into two directories

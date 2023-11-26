@@ -1,0 +1,34 @@
+# Parameters for LINESPEC task of IRAF package RVSAO 2.3
+
+# Emission lines
+linefile,s,a,"",,,Filename with list of emission or absorption lines
+linedir,s,h,"",,,Directory for line list
+linewidth,r,h,2.0,0.0,25.0,HWHM of instrument resolution in Angstroms
+maxwidth,b,h,no,,,Use maximum of line or instrument width or convolve (yes or no)
+zspec,r,h,0.0,,,Shift line centers to this dlambda/lambda (overrides velspec)
+velspec,r,h,0.0,,,Shift line centers to this velocity
+continuum,r,h,0.0,,,Continuum level for created spectrum
+
+# Output spectrum
+specname,s,h,"",,,Object name for created spectrum
+specfile,s,a,"",,,Filename for created spectrum
+specdir,s,h,"",,,Directory for created spectrum
+
+# Wavelength limits for output spectrum
+st_lambda,r,h,INDEF,,,Starting wavelength in Angstroms to save
+end_lambda,r,h,INDEF,,,Ending wavelength in Angstroms to save
+pix_lambda,r,h,INDEF,,,Wavelength per pixel in Angstroms
+npts,i,h,INDEF,,,Number of pixels in created spectrum
+
+# Displaying results
+spec_plot,b,h,no,,,True to plot the created spectrum
+spec_int,b,h,no,,,True to interact with the created spectrum
+device,s,h,"stdgraph",,,Display device
+plotter,s,h,"stdplot",,,Hardcopy output device
+verbose,s,h,yes,,,Print summary to log file (yes or not)
+logfiles,s,h,"STDOUT,linespec.log",,,List of log files
+
+# Debugging
+debug,b,h,no,,,Displays intermediate results
+cursor,*gcur,h,"",,,Graphics cursor input
+mode,s,h,"ql",,,

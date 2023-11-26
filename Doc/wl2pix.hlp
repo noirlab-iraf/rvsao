@@ -1,0 +1,91 @@
+.help wl2pix Aug2008 rvsao
+.ih
+NAME
+wl2pix -- Compute the pixel at a given wavelength in a spectrum
+.ih
+USAGE	
+.nf
+wl2pix spectrum wavelength
+.fi
+.ih
+PARAMETERS
+.ls spectrum
+Spectrum image file with dispersion function
+.le
+.ls specext = 0
+Spectrum extension number in multiextension FITS image
+.le
+.ls specnum 0
+Spectrum number in multispec image (order in echelle image)
+.le
+.ls specband 0
+Spectrum band in multispec image
+.le
+.ls wavelength INDEF
+Wavelength in Angstroms for pixel
+.le
+.ls pixel INDEF
+Pixel at specified wavelength (returned)
+.le
+.ls pixform "%8.3f"
+IRAF format for pixel output
+.le
+.ls waveform "%8.3f"
+IRAF format for wavelength output
+.le
+.ls nsum = 1
+Number of pixels to sum across dispersion
+.le
+.ls verbose no
+If yes, print the pixel value
+.le
+.ls debug = no
+If yes, print the file name, transformation, and wavelength per pixel
+.le
+
+.ih
+DESCRIPTION
+Compute the pixel value for a given wavelength in a spectrum, saving the
+value as the pix2wl.pixel parameter.  If verbose=yes, print the pixel
+value using the pix2wl.pixform format.  If debug=yes, print spectrum image
+name, followed by the wavelength value using the pix2wl.waveform format,
+the pixel falue using the pix2wl.pixform format, and the delta wavelength
+per pixel across this pixel.
+.ih
+EXAMPLES
+
+1) Compute the pixel at a given wavelength for use in a CL script:
+.nf
+rvsao> wl2pix 22572.fits 7000
+rvsao> =wl2pix.pixel
+3982.3984617936
+rvsao>
+.fi
+
+2) Print the pixel at a given wavelength:
+.nf
+rvsao> wl2pix 22572.fits 7000 v+
+3982
+rvsao>
+.fi
+
+3) Print the pixel at a given wavelength more verbosely:
+.nf
+rvsao> wl2pix 22572.fits 7000 d+
+22572.fits:  7000.000 -> 3982 (0.5744/pix)
+rvsao> 
+.fi
+
+4) Check the inverse of the dispersion function:
+.nf
+rvsao> wl2pix 22572.fits 7000
+rvsao> pix2wl  22572.fits wl2pix.pixel v+
+7000.000
+rvsao>
+.fi
+
+.ih
+AUTHOR
+Doug Mink, Harvard-Smithsonian Center for Astrophysics
+
+.endhelp

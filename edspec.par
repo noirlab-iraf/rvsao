@@ -1,0 +1,35 @@
+# Parameters for EDSPEC task of IRAF package RVSAO 2.9
+
+# Input Spectra
+spectra,s,a,"",,,List of input spectra
+specnum,s,h,"0",,,Spectrum aperture range if multispec or 2-D file
+specband,i,h,0,,,Spectrum band if multispec file
+specdir,s,h,"",,,Directory for input spectra
+
+# Useful display limits
+ymin,r,h,INDEF,,,Minimum y value to plot
+ymax,r,h,INDEF,,,Maximum y value to plot
+
+# Display Results
+device,s,h,"stdgraph",,,Display output device
+hardcopy,b,h,no,,,Automatic hardcopy of results (yes or no)
+displot,b,h,yes,,,Plot results on terminal (yes or no)
+plotter,s,h,"stdplot",,,Hardcopy output device
+dispmode,i,h,2,,,Graphical display mode (2=with line list 3=full screen)
+vel_plot,s,h,"emission",correlation|emission|combination,,Velocity to plot
+curmode,b,h,yes,,,Wait for cursor commands after plotting (yes or no)
+dispem,b,h,yes,,,Label emission lines on spectrum plot (yes or no)
+dispabs,b,h,yes,,,Label absorption lines on spectrum plot (yes or no)
+ablines,s,h,"ablines.dat",,,Absorption line lis
+
+# Displaying results
+nsmooth,i,h,0,,,Smooth displayed spectrum (0=no else number of times)
+logfiles,s,h,"STDOUT,edspec.log",,,List of log files
+nsum,i,h,1,,,"Number of pixels to sum across dispersion"
+
+# Debugging
+debug,b,h,no,,,Displays intermediate results
+cursor,*gcur,h,"",,,Graphics cursor input
+mode,s,h,"ql",,,
+
+# May 13 2013	New program to edit spectra based loosely on SUMSPEC and EMSAO

@@ -1,0 +1,49 @@
+# Parameters for BCVCORR task of IRAF package RVSAO 2.5
+
+# Spectra
+spectra,s,a,"",,,List of input spectra
+specnum,s,h,"0",,,Spectrum aperture range if multispec or 2-D file
+specdir,s,h,"",,,Directory for input spectra
+specsky,b,h,no,,,Is spectrum twilight sky? (yes or no)
+subgrav,b,h,no,,,Subtract solar gravitational redshift from sky? (yes or no)
+
+# Sky direction
+keyra,s,h,"RA",,,Right ascension header keyword
+keydec,s,h,"DEC",,,Declination header keyword
+keyeqnx,s,h,"EPOCH",,,Coordinate equinox header keyword
+ra,s,h,"INDEF",,,Right ascension of observation
+dec,s,h,"INDEF",,,Declination of observation
+equinox,s,h,"INDEF",,,Coordinate equinox
+
+# Observation date and time
+keydate,s,h,"DATE-OBS",,,Header keyword for observation date+time (FITS ISO JD MJD)
+keytime,s,h,"UT",,,Header keyword for UT if not part of date
+keywhen,s,h,start,start|mid|end,,When is time in observation (start mid end)?
+keyexp,s,h,"EXPOSURE",,,Header keyword for duration of observation in seconds
+keyhjd,s,h,"HJDN",,,Header keyword for heliocentric Julian date at obs. midtime
+hjd,r,h,0.0,,,Heliocentric Julian Date of observation
+gjd,r,h,0.0,,,Julian Date of observation
+year,i,h,INDEF,,,UT year of observation
+month,i,h,INDEF,,,UT month of observation
+day,i,h,INDEF,,,UT day of month of observation
+ut,r,h,INDEF,,,Universal Time of observation
+
+# Observatory
+obsname,s,h,"mmto",,,Observatory name--file to read from image header
+keyobs,s,h,"",,,Observatory name header keyword
+keylat,s,h,"",,,Observatory latitude header keyword
+keylong,s,h,"",,,Observatory longitude header keyword
+keyalt,s,h,"",,,Observatory altitude header keyword
+obslong,r,h,INDEF,,,Observatory longitude 
+obslat,r,h,INDEF,,,Observatory latitude
+obsalt,r,h,INDEF,,,Observatory altitude in meters
+
+# Results
+savebcv,b,h,no,,,Save velocity corrections in data file header (yes or no)
+savejd,b,h,no,,,Save JD HJD and UT midtimes in data file header (yes or no)
+bcv,r,h,INDEF,,,Returned solar system barycentric velocity correction
+hcv,r,h,INDEF,,,Returned heliocentric velocity correction
+verbose,b,h,yes,,,Displays heliocentric and barycentric corrections
+printmode,i,h,1,,,Display mode (1=all 2=bcv only 3=file+bcv
+debug,b,h,no,,,Displays intermediate results
+mode,s,h,"ql",,,

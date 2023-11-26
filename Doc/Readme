@@ -1,0 +1,13 @@
+RVSAO documentation and help files
+
+bcvcorr.hlp	IRAF help file for the stand-alone barycentric velocity task
+contpars.hlp	IRAF help file for the continuum fit pset task CONTPARS
+contsum.hlp	IRAF help file for the continuum fit pset task CONTSUM
+emsao.hlp	IRAF help file for the emission line velocity task EMSAO
+eqwidth.hlp	IRAF help file for the equivalent width task EQWIDTH
+qplot.hlp	IRAF help file for the redshift checking task QPLOT
+relearn.hlp	IRAF help file for the parameter updating task relearn
+linespec.hlp	IRAF help file for the emission line template creation task
+sumtemp.hlp	IRAF help file for the template combining task
+xcsao.hlp	IRAF help file for the cross-correlation velocity task XCSAO
+zvel.hlp	IRAF help file for task running EMSAO and XCSAO in sequence

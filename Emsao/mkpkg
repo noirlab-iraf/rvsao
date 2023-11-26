@@ -1,0 +1,29 @@
+# Make RVSAO library emission line velocity subroutines
+ 
+$checkout librv.a ../bin
+$update	librv.a
+$checkin librv.a ../bin
+$exit
+
+librv.a:
+	t_pemsao.x	<imhdr.h> <smw.h> <fset.h> rvsao.h rvsao.com emv.h emv.com
+	t_emsao.x	<imhdr.h> <smw.h> <fset.h> rvsao.h rvsao.com emv.h emv.com
+	emfit.x		<smw.h> rvsao.h emv.h rvsao.com emv.com contin.com
+	emrslts.x	<imhdr.h> rvsao.h emv.h rvsao.com emv.com
+	emarch.x	rvsao.h emv.h rvsao.com emv.com emlines.com ansum.com
+	emplot.x	<gio.h> rvsao.h emv.h rvsao.com emv.com
+	emeplot.x	<gio.h> rvsao.h emv.h rvsao.com emv.com
+	emiplot.x	<imhdr.h> <gio.h> rvsao.h emv.h rvsao.com emv.com results.com
+	emguess.x	emv.h emv.com
+	emsrch.x	emv.h emv.com
+	emlfit.x	emv.h emv.com
+	emvfit.x	emv.h emv.com
+	eminit.x	rvsao.h emv.h rvsao.com emv.com
+	emfind.x
+	emmin.x
+	emhead.x	<imhdr.h> <smw.h> <fset.h> rvsao.h emv.h rvsao.com emv.com
+	;
+emeplot.x:include <gio.h>
+emiplot.x:include       <gio.h>
+emplot.x:include        <gio.h>
+

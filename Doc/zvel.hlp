@@ -1,0 +1,62 @@
+.help zvel Mar94 rvsao
+.ih
+NAME
+zvel -- Compute redshift using the cross-correlation and emission line techniques
+.ih
+USAGE
+zvel spectra
+.ih
+PARAMETERS
+.ls imagelist = ""
+List of file names of spectra to analyze.
+@<filename> indicates list should come from file <filename>.
+<filename>[<range>] indicates that a range of apertures in a multispec
+file should be processed, where <range> is a comma- and/or
+hyphen-separated list of numbers.
+.le
+.ls imagext=".imh"
+Image header file name extension
+.le
+.ls emis_vel=yes
+Compute emission line velocities (yes or no)
+.le
+.ls corr_vel=yes
+Compute cross correlation velocities (yes or no)
+.le
+.ls plot=yes
+Plot results on display (yes or no)
+.le
+.ls hard_copy=no
+Make printer hard copies (yes or no)
+.le
+.ls curmode = no
+If yes, wait in cursor mode after each spectrum is processed.  Cursor
+mode commands may be listed by typing "?".
+.le
+.ls verbose = no
+If yes, values of the parameters fit to the selected peak
+are recorded in the log files.  This is most useful for debugging.
+.le
+ 
+.ih
+DESCRIPTION
+ZVEL runs either XCSAO or EMSAO or both, so the user doesn't have to
+type a file name in twice.  Set parameters in XCSAO, EMSAO, and CONTPARS.
+curmode, hard_copy, plot, and verbose override the equivalent parameters
+in XCSAO and EMSAO.  If both XCSAO and EMSAO are being run, the image
+files should be writeable so the cross-correlation velocity can be saved
+to be used as an initial guess at the emission line velocity.
+
+.ih
+EXAMPLES
+To obtain the redshift and dispersion of a single galaxy
+
+        cl> zvel galaxy
+
+To obtain redshifts for a whole night's worth of galaxy spectra:
+
+        cl> zvel @nite1.ls
+
+.ih
+BUGS
+.endhelp

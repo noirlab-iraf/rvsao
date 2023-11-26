@@ -1,0 +1,44 @@
+.help xcplot July2008 rvsao
+.ih
+NAME
+xcplot -- Use XCSAO to plot a spectrum
+.ih
+USAGE
+xcplot spectra
+.ih
+PARAMETERS
+
+.ls spectra = ""
+List of file names of spectra to plot
+.le
+.ls specband = 0
+Spectrum band to plot. If 0, plot the first or only spectrum in the file.
+.le
+.ls specnum = ""
+Spectrum aperture range to plot
+.le
+.ls specdir = ""
+Directory for spectrum to plot
+.le
+ 
+.ih
+DESCRIPTION
+XCPLOT runs XCSAO without correlating the spectrum with a template
+and simply displays the spectrum.  Parameters for line labelling
+and other functions are those already set in XCSAO.
+
+.ih
+EXAMPLES
+To plot a spectrum,
+
+        cl> xcplot galaxy.ms.fits
+
+To plot the spectra for a whole night's worth of spectra:
+
+        cl> skyplot @nite1.ls
+
+Type "q" to move on to the next spectrum.
+
+.ih
+BUGS
+.endhelp

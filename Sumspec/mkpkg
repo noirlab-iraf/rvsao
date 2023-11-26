@@ -1,0 +1,24 @@
+# File Rvsao/Sumspec/mkpkg
+# June 15, 2009
+# RVSAO SUMSPEC spectrum summing and rebinning
+ 
+$checkout librv.a ../bin
+$update	librv.a
+$checkin librv.a ../bin
+$exit
+
+librv.a:
+	t_sumspec.x	<imhdr.h> <imio.h> <fset.h> rvsao.h rvsao.com sum.com
+	addspec.x	<imhdr.h> <smw.h> <imio.h> <fset.h> rvsao.com contin.com sum.com
+	;
+# Jan 23 1997	Move T_SUMTEMP, ADDTEMP, and WRITETEMP from SAOTDC package
+# Mar 25 1997	Add task T_LINTEMP and subroutines MKGAUSS and WTGAUSS
+# Apr 21 1997	Add subroutine WLRANGE
+# Apr 29 1997	Change LINTEMP to LINESPEC and SUMTEMP to SUMSPEC
+# Oct  6 1997	Add smw.h to ADDSPEC dependencies
+
+# Apr 22 1998	Drop use of getim.com
+
+# Apr 26 2001	Separate Linespec and Sumspec into separate directories
+
+# Jun 15 2009	Move wlrange.x to Util

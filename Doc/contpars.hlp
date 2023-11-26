@@ -1,0 +1,65 @@
+.help contpars Sep09 rvsao
+.ih
+NAME
+contpars -- Parameter set for continuum and line removal
+.ih
+USAGE
+contpars
+.ih
+PARAMETERS
+.ls c_interactive no
+Fit continuum interactively (yes or no).  If yes, a graph of the spectrum
+and the continuum fit is plotted to stdgraph, with rejected points flagged.
+"q" accepts the fit and continues the main task, "?" prints options,
+"d" deletes points, "u" undeletes points, "f" refits and redraws the data.
+.le
+.ls c_sample "*"
+Sample of points to use in fit. "*" = all.
+.le
+.ls c_function spline3
+Continuum fitting function (spline3 or legendre or chebyshev or spline1)
+.le
+.ls naverage 1
+Number of points in sample averaging
+.le
+.ls order 1
+Order of fitting function.  This is the IRAF order, i.e. the number of
+coefficients, not what you might expect.  If order=0, no continuum is
+fit or removed.
+.le
+.ls s_low_reject 2.
+Spectrum continuum fit minimum acceptance limit in sigma of fit
+.le
+.ls s_high_reject 2.
+Spectrum continuum fit maximum acceptance limit in sigma of fit
+.le
+.ls t_low_reject 2.
+Template continuum fit minimum acceptance limit in sigma of fit
+.le
+.ls t_high_reject 2.
+Template continuum fit maximum acceptance limit in sigma of fit
+.le
+.ls niterate 10
+Number of rejection iterations
+.le
+.ls grow 1.
+Rejection growing radius
+.le
+ 
+.ih
+DESCRIPTION
+
+\fIcontpars\fR sets the parameters to be used to fit the continuum of
+spectra on which XCSAO or EMSAO are being run.
+ 
+.ih
+EXAMPLE
+To set continuum fit parameters,
+ 
+	rvsao> contpars
+ 
+.ih
+SEE ALSO
+xcsao, emsao
+ 
+.endhelp

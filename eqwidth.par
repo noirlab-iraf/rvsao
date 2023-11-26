@@ -1,0 +1,36 @@
+# Parameters for EQWIDTH task of IRAF package RVSAO 2.6.5
+
+spectra,s,a,"",,,List of input spectra
+specnum,s,h,"0",,,Spectrum aperture range if multispec or 2-D file
+specband,i,h,0,,,Spectrum band if multispec
+skyband,i,h,0,,,Sky spectrum band if multispec
+specdir,s,h,"",,,Directory for input spectra
+output,s,a,"STDOUT,eqwidth.log",,,Output file name
+bands,s,a,"",,,Bandpass file
+banddir,s,a,"",,,Bandpass directory
+bandfilt,b,h,n,,,Filter names follow wavelength limits in bandpass file
+bandcont,b,h,n,,,Continuum names precede wavelength limits in bandpass file
+bindim,i,h,0,,,Minimum number of rows in bin by one spectrum
+normalize,b,h,yes,,,Normalize the bandpass response?
+fitcont,b,h,no,,,Fit continuum instead of averaging points (yes or no)
+netflux,b,h,no,,,Compute net flux from emission region instead of eqwidth
+byexp,b,h,no,,,Convert to counts per second (exposure normalization)
+bypix,b,h,no,,,Convert to counts per row (spatial normalization)
+torest,b,h,no,,,Measure flux at rest wavelength (not observed) if yes
+mag,b,h,no,,,Output results in magnitudes?
+magzero,r,h,0.,,,Magnitude zero point
+device,s,h,"stdgraph",,,Display device
+plot_obj,b,h,no,,,Plot the raw object data
+int_obj,b,h,no,,,Interact with plot of raw object data
+plot_fitcont,b,h,no,,,Plot the continuum fit to the data
+plot_contsub,b,h,no,,,Plot the continuum-subtracted data
+int_contsub,b,h,no,,,Interact with plot of continuum-subtracted data
+nsmooth,i,h,0,,,Number of times to 1-2-1 smooth plotted spectra
+report_mode,i,h,1,,,Report mode (1 standard 2 line names in headings)
+nsum,i,h,1,,,"Number of pixels to sum across dispersion"
+hardcopy,b,h,no,,,Automatic hardcopy of results (yes or no)
+plotter,s,h,"stdplot",,,Hardcopy output device
+verbose,b,h,yes,,,Verbose header?
+debug,b,h,no,,,Print debugging info?
+cursor,*gcur,h,"",,,Graphics cursor input
+mode,s,h,"ql",,,

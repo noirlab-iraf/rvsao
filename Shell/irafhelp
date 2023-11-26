@@ -1,0 +1,67 @@
+#!/data/IRAF2.14.1/iraf/bin.redhat/ecl.e -f
+# This script runs IRAF HELP from a Unix command line
+# Replace the path in the first line with one appropriate to your machine
+# March 31, 2009
+# By Doug Mink
+
+string	uprm, hm, package, task, tempcom
+char	cdot
+
+cdot = '.'
+
+# Set machine type appropriately
+set arch=".redhat"
+
+# Set the terminal type.
+if (envget("TERM") == "sun") {
+    stty gterm
+} else if (envget("TERM") == "xterm") {
+    stty xterm
+} else if (envget("TERM") == "network") {
+    stty vt100
+} else {
+    stty xterm
+}
+
+# Set the IRAF home and parameter directories
+if (defvar("irafhome")) {
+    hm = envget("irafhome")
+    i = strlen(hm)
+    if (substr(hm, i, i) == "/")
+        set (home = hm)
+    else
+        set (home = hm // "/")
+    set uparm = "home$uparm/"
+    }
+else {
+    hm = envget ("HOME")
+    set (home = hm // "/IRAF/")
+    set uparm = "home$uparm/"
+    }
+
+if (defvar("UPARM")) {
+    uprm = envget("UPARM")
+    i = strlen(uprm)
+    if (substr(uprm, i, i) == "/")
+        set (uparm = uprm)
+    else
+        set (uparm = uprm // "/")
+  }
+
+#print "IHELP: ARGS=" args
+
+# If no arguments, print usage
+if (args == "") {
+    print ("irafhelp: Print help file of an IRAF task")
+    print ("Usage: irafhelp task")
+    }
+
+# If arguments, set up temporary command file
+else {
+    tempcom = mktemp ("temphelp")
+    printf ("help %s\n", args, >tempcom)
+    cl (<tempcom)
+    delete (tempcom)
+    }
+
+logout

@@ -1,0 +1,162 @@
+.help listspec Apr2008 rvsao
+.ih
+NAME
+listspec -- List wavelength and pixel value for spectrum image
+.ih
+USAGE	
+.nf
+listspec filelist
+.fi
+.ih
+PARAMETERS
+.ls input
+Image file template.
+.le
+.ls specext = 0
+Spectrum extension number in multiextension FITS image
+.le
+.ls specnum 0
+Spectrum number in multispec image
+.le
+.ls specband 0
+Spectrum band in multispec image
+.le
+.ls pix1 INDEF
+First pixel to list (INDEF starts with first pixel in this spectrum)
+.le
+.ls pix2 INDEF
+Last pixel to list (INDEF starts with last pixel in this spectrum)
+.le
+.ls lambda1 INDEF
+Starting wavelength to list (INDEF starts with first defined wavelength in file)
+.le
+.ls lambda2 INDEF
+Ending wavelength to list (INDEF starts with first defined wavelength in file)
+.le
+.ls logwav = no
+Print log wavelength instead of wavelength
+.le
+.ls renormalize = 0.0
+Renormalize data to this number (neg mean  pos max)
+.le
+.ls printlim = no
+Print values at only pix1 and pix2 if yes else pixels between
+.le
+.ls columns = "wf"
+Print n=ap p=pixel w=wavelength f=flux v=velocity d=deltawave
+.le
+.ls numform = "%3d"
+IRAF format for spectrum number/aperture/order
+.le
+.ls pixform = "%4d"
+IRAF format for spectrum pixel number
+.le
+.ls fluxform = "%g"
+IRAF format for flux output
+.le
+.ls waveform = "%9.3f"
+IRAF format for wavelength/log wavelength output
+.le
+.ls outfile = no
+Write list to output file x.wav (yes or no)
+.le
+.ls heading = no
+Include one line description at start of each file (yes or no)
+.le
+.ls nsum = 1
+Number of pixels to sum across dispersion
+.le
+.ls verbose no
+If yes, print the name of the spectrum before listing its values.
+.le
+.ls debug = no
+Print extra information for debugging (yes or no)
+.le
+
+.ih
+DESCRIPTION
+Print wavelength/pixel value pairs for a spectrum image, computing the
+wavelength using the world coordinate system defined in the image header.
+If number is nonzero, print the pixel number in that column for each pixel.
+If lambda1 is set, start with the first pixel with a wavelength greater than
+or equal to lambda1 in angstroms.  If lambda2 is set, stop with the last
+pixel with a wavelength less than or equal to lambda2 in angstroms.  If pix1
+is set, start at that pixel number (overidden by lambda1).  If pix2 is set,
+end with that pixel number (overidden by lambda2).
+
+.ih
+EXAMPLES
+
+1) Print a portion of a spectrum:
+.nf
+
+rvsao> listspec 2001.0530.0086.N5548.ms.fits pix1=1000 pix2=1010 columns=wf v+
+Spectrum N5548 1 - 2635
+5109.598 566.9747
+5111.069 535.2692
+5112.541 451.0975
+5114.012 507.8816
+5115.484 544.0441
+5116.955 518.6956
+5118.427 539.1362
+5119.898 530.2105
+5121.370 475.1248
+5122.841 489.9548
+5124.312 505.7442
+rvsao>
+.fi
+
+2) Print a portion of a spectrum with pixel numbers:
+.nf
+
+rvsao> listspec 2001.0530.0086.N5548.ms.fits pix1=1000 pix2=1010 columns=pwf v+
+Spectrum N5548 1 - 2635
+1000  5109.598 566.9747
+1001  5111.069 535.2692
+1002  5112.541 451.0975
+1003  5114.012 507.8816
+1004  5115.484 544.0441
+1005  5116.955 518.6956
+1006  5118.427 539.1362
+1007  5119.898 530.2105
+1008  5121.370 475.1248
+1009  5122.841 489.9548
+1010  5124.312 505.7442
+rvsao>
+.fi
+
+3) Print the first ten pixels of a spectrum with pixel numbers:
+.nf
+
+rvsao> listspec 2001.0530.0086.N5548.ms.fits pix2=10 columns=pwf
+   1  3639.606 56.43489
+   2  3641.077 29.7611
+   3  3642.549 58.7378
+   4  3644.020 101.496
+   5  3645.492 108.704
+   6  3646.963 69.95907
+   7  3648.435 72.81136
+   8  3649.906 71.15504
+   9  3651.378 61.04418
+  10  3652.849 77.30488
+rvsao> 
+.fi
+
+4) Print the width and velocity shift with pixel numbers:
+.nf
+rvsao> listspec 2001.0530.0086.N5548.ms.fits pix1=1000 pix2=1010 columns=pwdv v+
+Spectrum N5548 1 - 2635
+1000  5109.598     1.471    86.334
+1001  5111.069     1.471    86.309
+1002  5112.541     1.471    86.285
+1003  5114.012     1.471    86.260
+1004  5115.484     1.471    86.235
+1005  5116.955     1.471    86.210
+1006  5118.427     1.471    86.185
+1007  5119.898     1.471    86.161
+1008  5121.370     1.471    86.136
+1009  5122.841     1.471    86.111
+1010  5124.312     1.471    86.086
+rvsao>
+.fi
+.endhelp

@@ -1,0 +1,295 @@
+.help sumspec Mar2009 rvsao
+.ih
+NAME
+sumspec -- Make a composite spectrum from several spectra
+.ih
+USAGE
+sumspec spectra compfile
+.ih
+PARAMETERS
+.ls spectra = ""
+List of file names of spectra to analyze.
+@<filename> indicates list should come from file <filename>.
+<filename>[<range>] indicates that a range of apertures in a multispec
+file should be processed, where <range> is a comma- and/or
+hyphen-separated list of numbers.
+.le
+.ls specnum = 0
+If this is nonzero and \fIspectra\fR contains a single file name, this is
+a range of spectrum numbers in a multispec file which will be added.
+Wavelength dispersion information is read from APNUMn or the WCS keywords.
+Velocity information is read from APVELn and saved in APVELn and APVXCn.
+In a non-multispec file, radial velocity is read from the VELOCITY header
+parameter. 
+.le
+.ls specband = 0 
+If this is nonzero, it is the band in the multispec file(s) specified by
+spectra which will be summed.  Wavelength dispersion information
+is read from APNUMn, where n is the aperture specified by \fIspecnum\fR or the
+WCS keywords. Velocity information is read from APVELn and saved in APVELn
+and APVXCn. (New in version 2.0) 
+.le
+.ls specdir = "./"
+Directory containing spectra to analyze.  This part of the pathname is not
+printed at the top of the page, and is assumed to be the same for all
+spectra listed in the spectra parameter. 
+.le
+
+.ls compfile = ""
+File name for output spectrum.
+.le
+.ls compname = ""
+Title for output spectrum.
+.le
+.ls compdir = ""
+Directory for output spectrum
+.le
+.ls nspec = 1
+Number of spectra in output file
+.le
+.ls save_names = yes
+Save names of input files in output file header (yes or no)
+.le
+.ls copy_header = yes
+Copy output header from first input spectrum (yes or no)
+.le
+
+.ls normin = no 
+If yes, the data spectrum is divided by its mean value before being processed.
+Use this on spectra which have unusual data values such as those produced
+by flux calibration.
+.le
+.ls fixbad = no 
+If "yes", remove wavelength-delimited regions listed in the file specfied
+by \fIbadlines\fR. (added in version 2.0) 
+.le
+.ls badlines = badlines.dat 
+File containing list of starting and stopping wavelengths in Angstroms
+for removal of portions of all object spectra if \fIfixbad\fR is yes.
+All information after the second wavelength is a comment field. This file
+is assumed to be in the directory \fIlinedir\fR unless a complete pathname
+starting with "/" is specified. (added in version 2.0) 
+.le
+.ls linedir = "rvsao$lib/" 
+Directory containing line list file named by badlines. This parameter is
+ignored if: that filename contains a "/" in the first column, as it is
+assumed to be a full pathname, if there is a "/" anywhere else in the
+filename, as it is assumed to be a path relative to the current working
+directory, or if there is a "$" in the filename, as the part preceding
+the "$" is assumed to be an IRAF environment parameter (ending in "/")
+defining a directory. 
+.le
+.ls cont_remove = no 
+Remove continuum from input spectra if not "no". If "subtract", subtract
+continuum. If "divide", divide by continuum. If "zerodiv", divide by
+continuum and subtract 1. This last should be used instead of "divide"
+if the file is to be cross-correlated. In version 2.0, "divide" subtracted
+1; in version 2.1b15 and later, it doesn't, and the "zerodiv" option was added. 
+Parameters used in the fit are mostly set in the contsum pset.
+.le
+.ls cont_split = 1
+Number of regions into which to split the spectrum for separate continuum fits
+.le
+.ls reject = "no"
+Chop out emission lines from object spectra before adding them to the
+composite spectrum if "yes".  If "specfile", emission lines are removed
+if the value of the CHOPEM keyword in the object spectrum image header is
+T.  If the keyword is not present or is F, emission lines are not removed.
+If "no", emission lines are never removed.  If EMCHOP in the input spectrum
+file is 1, emission lines are not removed.
+.le
+.ls abs_reject = 100.0 
+Input spectrum absorption line rejection in sigma of fit 
+.le
+.ls em_reject = 2.0 
+Input spectrum emission line rejection in sigma of fit 
+.le
+.ls contout = no 
+Remove continuum from output spectrum/spectra if not "no".
+If "subtract", subtract continuum.
+If "divide", divide by continuum.
+If "zerodiv", divide by continuum and subtract 1. This last should be
+used instead of "divide" if the file is to be cross-correlated. In
+version 2.0, "divide" subtracted 1; in version 2.1b15 and later, it
+doesn't, and the "zerodiv" option was added. 
+Parameters used in the fit are mostly set in the contsum pset.
+.le
+.ls cont_plot = yes 
+If yes, plots of the continuum-subtracted input spectra are displayed.
+This is most useful for determining the appropriateness of the continuum
+fitting parameters.
+.le
+.ls cont_add = 0
+Continuum level added to output spectrum to keep all flux above zero, for
+example
+.le
+.ls spec_smooth = 0
+If >0, the spectra are smoothed \fIsmooth\fR times before graphing them.
+The spectrum is NEVER smoothedvefore adding
+.le
+
+.ls st_lambda = INDEF
+Starting wavelength in angstroms of output spectrum.
+If INDEF, use beginning of wavelength overlap between input spectra.
+.le
+.ls end_lambda = INDEF
+Ending wavelength in angstroms of output spectrum.
+If INDEF, use end of wavelength overlap between input spectra.
+.le
+.ls pix_lambda = INDEF
+Wavelength per pixel in angstroms of output spectrum.
+If INDEF, compute from wavelength range and number of pixels in output spectra.
+.le
+.ls ncol = 2048
+Number of pixels into which to rebin data.
+.le
+.ls complog = no
+Rebin into log wavelength (yes or no)
+.le
+.ls interp_mode = "spline3"
+Interpolation mode to use when rebinning spectra, must be
+"nearest" or "linear" or "spline3" or "poly3" or "poly5" or "sinc" or "lsinc"
+or "drizzle" or "sums".
+.le
+.ls normout = no
+If true, the output spectrum is divided by its mean value before being
+transformed.  This is used on spectra which may have unusual values due
+to their having already been flux-calibrated.
+.le
+
+.ls spec_plot = yes
+If yes, plots of the individual spectra are displayed.  During this time the
+normal IRAF cursor commands are active as well as several more that are
+itemized below.  If emission lines are chopped, before and after plots
+are displayed, as well as the chopped line(s).
+.le
+.ls spec_int = no 
+If yes, pause in cursor mode after each input spectrum has been plotted.
+.le
+.ls comp_plot = yes
+If yes, a plot of the output spectrum is displayed after each input spectrum is
+added.  Cursor commands are activated for zooming in on a portion of the
+spectrum and hard copies may be made to stdplot using the \fI@\fR command.
+.le
+.ls comp_int = no 
+If yes, pause in cursor mode after the composite spectrum has been plotted.
+.le
+.ls ymin = INDEF
+Minimum y value to plot.  Autoscale if INDEF
+.le
+.ls ymax = INDEF
+Maximum y value to plot.  Autoscale if INDEF
+.le
+
+.ls velcomp = INDEF
+Velocity in km/sec to which to shift individual spectra. If INDEF, do not shift
+spectra at all.
+.le
+.ls zcomp = INDEF
+Velocity of output spectrum as delta lambda / lambda; overrides velcomp if not
+INDEF.
+.le
+.ls svel_corr = "barycentric"
+Spectrum velocity correction to the solar system barycenter.  Set to
+"none" if spectrum has already been shifted or if this correction is
+unnecessary.  If "file", \fIBCV\fR is used if present in the file header,
+or else \fIHCV\fR.  If "hfile", the header parameter \fIHCV\fR is always
+used.  If neither is found, no correction is made.  If svel_corr is not
+set to "none", but velcomp and zcomp are INDEF, data is shifted to the
+barycentric velocity correction of the first spectrum, if it has one.
+
+If "heliocentric" or "barycentric" corrections are chosen, position and
+time parameters are read from the spectrum data file header.  \fIDATE-OBS\fR
+(date in format 'dd-mm-yy') \fIUT\fR (U.T. at end of exposure as 'hh:mm:ss')
+and \fIUTOPEN\fR (U.T. at start of exposure as 'hh:mm:ss') or
+\fIEXPOSURE\fR (length of exposure in seconds) are used to compute
+the midtime of the exposure.  \fIRA\fR (right ascension as 'hh:mm:ss.ss'),
+\fIDEC\fR (declination as 'dd:mm:ss.ss'), and \fIEPOCH\fR (epoch of
+coordinates defaults to 1950.0) give the position of the object whose
+spectrum this is.  \fISITELONG\fR (observatory longitude as 'dd:mm:ss.ss'
+or degrees), \fISITELAT\fR (observatory latitude as 'dd:mm:ss.ss' or
+degrees), and \fISITEELEV\fR (observatory altitude in meters) give the
+observatory position.  Use bcvcorr task to set BCV in header and use "file"
+here if header parameters are different.
+.le
+
+.ls nsmooth = 0
+Number of times to 1-2-1 smooth displayed spectrum
+.le
+.ls device = "stdgraph"
+Interactive device on which to graphicallly
+.le
+.ls plotter = "stdplot"
+Second, non-interactive device on which to plot the graphic summary of results.
+.le
+.ls logfiles = "STDOUT,sumtemp.log"
+All results from SUMTEMP are recorded in these files.
+.le
+.ls nsum = 1
+Number of pixels to sum across dispersion
+.le.
+.ls debug = no
+If yes, values of the parameters fit to the selected peak
+are recorded in the log files.  This is most useful for debugging.
+.le
+ 
+.ih
+DESCRIPTION
+SUMSPEC combines spectra, shifting them to a common redshift, if either the
+\fIvel_comp\fR or the \fIz_comp\fR parameter is not INDEF.  The
+VELOCITY header parameter of each of these spectra is assumed to be
+a solar-system-barycenter-corrected velocity, and a barycentric
+correction (computed by SUMSPEC or extracted from the BCV or HCV
+header parameter) is subracted to get the redshift of the spectrum.
+Each spectrum is shifted and rebinned to log or linear wavelength, then added
+to the composite spectrum.  Input may be multispec or twodspec format,
+but output is always a one-dimensional file.
+ 
+.ih
+CURSOR
+The following keystrokes are active for graphs of input and output spectra
+in addition to the normal IRAF cursor facilities (a list of those is
+available with the command ":.help"):
+
+.ls @
+Make a hard copy on the device designated by \fIplotter\fR.
+.le
+.ls c
+Prints cursor position in x and y.  This is the default.  All other
+undefined keys perform this same function.
+.le
+.ls d
+Replaces a region between the marked vertical cursors with interpolated
+values from the edges of the marked region.  This is typically used to
+eliminate poorly subtracted night sky lines or emission lines.
+.le
+.ls n
+Smooth spectrum n times before plotting.  This only affects to current
+spectrum display and the final spectrum graph, not the spectrum data.
+.le
+.ls q
+Quit and exit.
+.le
+.ls r
+Forces a replot of the current spectrum at the original scale.
+.le
+.ls u
+Redisplay the entire plot after zooming.
+.le
+.ls z
+Zoom in on the region marked by two successive <z>'s
+.le
+
+.ih
+EXAMPLE
+To make a galaxy template by combining a list of galaxy spectra:
+
+        rvsao> sumspec @galaxies template=galtemp tempvel=1000.0
+.ih
+SEE ALSO
+rvsao.contsum which sets the continuum fit parameters
+
+On-line help is available over the World Wide Web at
+http://tdc-www.harvard.edu/iraf/rvsao/sumspec
+
+.endhelp

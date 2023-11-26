@@ -1,0 +1,51 @@
+This directory contains lists of absorption and emission lines as well as
+common and header files for RVSAO and information needed to access RVSAO
+help files.
+
+Help files:
+
+Use these with softools.mkhelpdb if package is named rvsao
+  root.hd
+  rootrvsao.hd
+to make
+  helpdb.mip
+
+Use these with softools.mkhelpdb if package is named r2rvsao
+  root2.hd
+  rootrvsao2.hd
+to make
+  helpdb.mip (or rename helpdb2.mip)
+
+Line Lists:
+
+Defaults:
+  ablines.dat	Galaxy absorption lines
+  emlines.dat	Galaxy emission lines
+  emsrch.dat	Galaxy lines for emsao.vel_init="search"
+  emcomb.dat	Galaxy combination lines
+  badlines.dat	Night sky lines which may cause problems
+
+Other files of lines to remove:
+  badskyo.dat	Night sky OI lines which may cause problems
+  badskynao.dat	Night sky Na and OI lines which may cause problems
+
+Other files of lines to search:
+  emhsrch.dat	
+
+Files for night sky emission line fits using EMSAO
+  mkosky.dat	Night sky lines at Mauna Kea, including brightest OH lines
+  mkoskyall.dat Night sky lines at Mauna Kea, including all OH lines to 7000 A
+  skylines.dat	Reliable night sky lines
+  skysearch.dat	Sky lines for emsao.vel_init="search"
+  skycomb.dat	Sky combination lines
+  skynao.dat	skylines.dat without 4046 Hg line
+  skyolines.dat	Night sky OI lines only
+
+Line lists for LINESPEC
+  skytemp.dat	Input file to make a fake night sky spectrum
+  emtemp.dat	Input file to make a fake galaxy emission spectrum
+
+Alternate lines to display:
+  emlineshe.dat  Helium star emission lines
+  emlineshe2.dat Exploding star HeI and HeII emission lines
+                 from L.H.Aller, "Gaseous Nebulae" NY: John Wiley, 1956, p.60ff

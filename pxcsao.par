@@ -1,0 +1,109 @@
+# Parameters for PXCSAO task of IRAF package RVSAO 2.8.6
+
+# Spectra
+spectra,s,a,"",,,List of input spectra
+specnum,s,h,"0",,,Spectrum aperture range if multispec or 2-D file
+specband,i,h,0,,,Spectrum band if multispec file
+specext,i,h,0,,,FITS extension for spectrum or spectra (0=primary or only ext)
+specdir,s,h,"",,,Directory for input spectra
+correlate,s,h,"velocity",|velocity|wavelength|pixel|yes|no|,,Cross-correlate spectrum (velocity wavelength pixel no)
+
+# Templates
+templates,s,h,"",,,List of template spectra
+tempnum,s,h,"0",,,Template aperture range if 2-D or multispec file
+tempband,i,h,1,,,Template band if template is multispec file
+tempdir,s,h,"",,,Directory for template spectra
+echelle,b,h,no,,,Echelle spectra (template tracks spectrum) (yes or no)
+
+# Wavelength limits for correlation
+st_lambda,r,h,INDEF,,,Starting wavelength in Angstroms or pixels to correlate
+end_lambda,r,h,INDEF,,,Ending wavelength in Angstroms or pixels to correlate
+
+# Useful intermediate displays
+obj_plot,b,h,no,,,Plot the raw object data
+xcor_plot,b,h,no,,,Plot the filtered correlation function
+xcor_file,b,h,no,,,Write the filtered correlation function to a file
+
+# Emission and absorption line removal
+fixbad,b,h,no,,,Eliminate portions of spectrum with bad lines (yes or no)
+badlines,s,h,"badlines.dat",,,Lines to eliminate from spectrum
+s_emchop,s,h,"no",|yes|no|tempfile|specfile|,,"Remove emission or absorption lines (yes,no,tempfile)"
+t_emchop,s,h,"no",|yes|no|tempfile|,,"Remove emission or absorption lines (yes,no,tempfile)"
+s_abs_reject,r,h,100,0.,,"Spectrum absorption line rejection in sigma of fit"
+s_em_reject,r,h,2.,0.,,"Spectrum emission line rejection in sigma of fit"
+t_abs_reject,r,h,0.,0.,,"Template absorption line rejection in sigma of fit"
+t_em_reject,r,h,0.,0.,,"Template emission line rejection in sigma of fit"
+
+# Spectrum processing
+bell_window,r,h,0.05,,,Fraction of spectrum to taper
+renormalize,b,h,no,,,Renormalize spectrum before transform (yes or no)
+ncols,i,h,2048,256,65536,Number of cols into which to rebin
+interp_mode,s,h,"spline3",nearest|linear|spline3|poly3|poly5|sums,,Rebin interpolation mode
+
+# Fourier transform processing
+zeropad,s,h,"no",|yes|no|tempfile|,,"Pad transforms with zeroes to lower noise (yes, no, tempfile)"
+low_bin,i,h,5,,,Bin number of low frequency cutoff
+top_low,i,h,20,,,Bin number where low frequency reaches one
+top_nrun,i,h,125,,,Bin number where high frequency starts to slope off
+nrun,i,h,250,,,Bin number of high frequency cutoff
+
+# Velocity modification
+vel_init,s,h,"zero",zero|guess|zguess|correlation|emission|combination,,Initial velocity source (zero guess zguess corr em comb)
+czguess,r,h,0.,,,Initial velocity guess in km/sec or z
+nzpass,i,h,0,,,Number of times template is shifted to match object velocity
+tshift,r,h,0.,,,"night to night zero point velocity shift"
+svel_corr,s,h,"barycentric",none|file|heliocentric|barycentric|hfile,,"Spectrum velocity correction (none,file,helio,bary,hfile)"
+tvel_corr,s,h,"file",none|file|heliocentric|barycentric|hfile,,"Template velocity correction (none,file,helio,bary,hfile)"
+
+# Velocity peak fitting
+pkmode,i,h,1,,,Peak-fitting mode (1-parabola 2-quartic 3-cosx/1+x^2)
+pkfrac,r,h,0.5,,,Fraction of peak or number of points for peak fitting (0=FWHM)
+pksrch,i,h,25,,,Half-width of search region for graphically set peak
+minvel,r,h,-5000.,,,Minimum allowable velocity in km/sec
+maxvel,r,h,100000.,,,Maximum allowable velocity in km/sec
+
+# Saving results
+report_mode,i,h,1,,,Report mode (1=normal 2=one-line)
+maxlength,i,h,0,,,Maximum output file length (0=default)
+logfiles,s,h,"STDOUT,xcsao.log",,,List of log files
+save_vel,b,h,no,,,Save result in IRAF data file header (yes or no)
+rvcheck,b,h,no,,,Enable header update if not correlate=no (yes or no)
+archive,b,h,no,,,Save results in binary archive record (yes or no)
+
+# Display information
+nsmooth,i,h,0,,,Smooth displayed spectrum (0=no else number of times)
+cvel,r,h,INDEF,,,Center velocity of output graph
+dvel,r,h,INDEF,,,Velocity half-width of output graph
+ablines,s,h,"ablines.dat",,,Absorption line list
+emlines,s,h,"emlines.dat",,,Emission line list
+linedir,s,h,"rvsao$lib/",,,Directory for line lists
+
+# Displaying results
+dispmode,i,h,1,,,Display modes (1=spectrum+xcor 2=spectrum+lines)
+displot,b,h,yes,,,Display results on <device> (yes or no)
+device,s,h,"stdgraph",,,Display device
+vel_plot,s,h,"correlation",correlation|emission|combination,,Velocity to plot
+curmode,b,h,no,,,Wait for keyboard response after each object (yes or no)
+hardcopy,b,h,no,,,Automatic hardcopy of results on <plotter> (yes or no)
+plotter,s,h,"stdplot",,,Hardcopy output device
+
+# Results
+besttemp,s,h,"",,,Best template
+velocity,r,h,0,,,Velocity for best template
+velerr,r,h,0,,,Velocity error for best template
+r,r,h,0,,,R-value for best template
+velmed,r,h,0,,,Median velocity for multiple orders
+velq1,r,h,0,,,First quartile velocity for multiple orders
+velq2,r,h,0,,,Second quartile velocity for multiple orders
+
+# Debugging
+temp_plot,b,h,no,,,Plot the template spectra
+contsub_plot,b,h,no,,,Plot the continuum-subtracted data
+apodize_plot,b,h,no,,,Plot the apodized data
+fft_plot,b,h,no,,,Plot the fft of the data
+tfft_plot,b,h,no,,,Plot the inverse of the fft (the filtered spectra)
+uxcor_plot,b,h,no,,,Plot the unfiltered cross-correlation
+nsum,i,h,1,,,"Number of pixels to sum across dispersion"
+debug,b,h,no,,,Display intermediate results
+cursor,*gcur,h,"",,,Graphics cursor input
+mode,s,h,"ql",,,

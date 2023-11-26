@@ -1,0 +1,12 @@
+# Make RVSAO library equivalent width subroutines
+ 
+$checkout librv.a ../bin
+$update	librv.a
+$checkin librv.a ../bin
+$exit
+
+librv.a:
+	t_eqwidth.x	<error.h> <smw.h> eqw.h eqw.com
+	eqplot.x	eqw.h
+	eqwplot.x	eqw.h
+	;

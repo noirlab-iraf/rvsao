@@ -1,0 +1,90 @@
+# Make RVSAO package tasks
+ 
+$call	relink
+$exit
+;
+ 
+update:
+	$call	relink
+	$call	install
+	;
+ 
+install:
+	$move	xx_rvsao.e bin/x_rvsao.e
+	;
+
+relink:
+	!mkpkg -p noao nrelink
+	;
+ 
+nrelink:
+	$set LIBS = "librv.a -lsmw -lxtools -lcurfit -liminterp -lllsq"
+	$checkout librv.a bin
+	$update librv.a
+	$checkin librv.a bin
+	$omake	x_rvsao.x
+	$move bin/librv.a librv.a
+#	$link	x_rvsao.o $(LIBS) -o xx_rvsao.e
+	$link	-z x_rvsao.o $(LIBS) -o xx_rvsao.e
+	$move librv.a bin/librv.a
+	$delete x_rvsao.o
+	;
+
+librv.a:
+	@Util
+	@Xcsao
+	@Emsao
+	@Linespec
+	@Sumspec
+	@Eqwidth
+	;
+
+generic:
+        $delete bin
+        !ln -s ./bin.generic ./bin
+        ;
+
+ssun:
+	$delete bin
+	!ln -s ./bin.ssun ./bin
+	;
+
+redhat:
+	$delete bin
+	!ln -s ./bin.redhat ./bin
+	;
+
+macosx:
+	$delete bin
+	!ln -s ./bin.macosx ./bin
+	;
+
+macintel:
+	$delete bin
+	!ln -s ./bin.macintel ./bin
+	;
+
+cygwin:
+	$delete bin
+	!ln -s ./bin.cygwin ./bin
+	;
+
+alpha:
+	$delete bin
+	!ln -s ./bin.alpha ./bin
+	;
+
+sparc:
+	$delete bin
+	!ln -s ./bin.sparc ./bin
+	;
+
+linux:
+	$delete bin
+	!ln -s ./bin.linux ./bin
+	;
+
+linux64:
+	$delete bin
+	!ln -s ./bin.linux64 ./bin
+	;

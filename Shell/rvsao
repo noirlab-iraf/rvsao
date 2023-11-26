@@ -1,0 +1,38 @@
+echo The tasks of the IRAF RVSAO spectrum package may be run from the
+echo Unix/Linux command line as if you were inside IRAF.  The parameters
+echo used come from the IRAF home directory defined by the irafhome
+echo environment variable or if that is not present, the IRAF/ subdirectory
+echo of the user's home directory.
+ 
+bcvcorr    Compute barycentric velocity correction for a spectrum
+contpars   Set continuum fitting parameters for xcsao and emsao
+contsum    Set continuum fitting parameters for sumspec
+emsao      Find velocities (red shifts) of emission lines in a spectrum
+pemsao     Find velocities (red shifts) of emission lines in a spectrum
+emplot     Plot a spectrum labelling emission and absorption lines
+eqwidth    Find equivalent widths of emission and absorption lines in a spectrum
+ihelp      Print help file of an IRAF task
+irafhelp   Print help file of an IRAF task
+linespec   Make an emission line template spectrum given a line list
+listspec   List the spectrum in the specified format
+sumspec    Add spectra, shift them, and/or remove continua
+xcsao      Cross-correlate a spectrum against a set of templates
+pxcsao     Cross-correlate a spectrum against a set of templates
+ 
+If you type the command with no arguments, you will get a simple help
+message with options for parameter access and more complete help,
+for example:
+
+$ xcsao
+XCSAO: Cross-correlate a spectrum against a set of templates
+usage: xcsao spectrum [templates=xxx][other arguments]
+      xcsao help  for IRAF help
+      xcsao dpar  to dump parameters
+      xcsao epar  to edit parameters
+      xcsao lpar  to list parameters
+
+where
+    help opens IRAF help for the task
+    dpar dumps the parameters using IRAF's dpar as task.parameter=value
+echo "    epar edits the parameters using IRAF's eparam
+    lpar list the parameters using IRAF's lparam"

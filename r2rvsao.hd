@@ -1,0 +1,16 @@
+# Help directory for the SAO TDC radial velocity package.
+
+$doc		= "r2rvsao$Doc/"
+
+bcvcorr		hlp=doc$bcvcorr.hlp,	src=rvsao$Util/t_bcvcorr.x
+contpars	hlp=doc$contpars.hlp,	src=rvsao$contpars.par
+contsum		hlp=doc$contsum.hlp,	src=rvsao$contsum.par
+xcsao		hlp=doc$xcsao.hlp,	src=rvsao$Xcsao/t_xcsao.x
+emsao		hlp=doc$emsao.hlp,	src=rvsao$Emsao/t_emsao.x
+eqwidth		hlp=doc$eqwidth.hlp,	src=rvsao$Eqwidth/t_eqwidth.x
+qplot		hlp=doc$qplot.hlp,	src=rvsao$qplot.cl
+relearn		hlp=doc$relearn.hlp,	src=rvsao$relearn.cl
+linespec	hlp=doc$linespec.hlp,	src=rvsao$Makespec/t_linespec.x
+sumspec		hlp=doc$sumspec.hlp,	src=rvsao$Makespec/t_sumspec.x
+velset		hlp=doc$velset.hlp,	src=rvsao$Util/t_velset.x
+zvel		hlp=doc$zvel.hlp,	src=rvsao$zvel.cl

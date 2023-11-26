@@ -1,0 +1,26 @@
+# Help directory for the SAO TDC radial velocity package.
+
+$doc		= "rvsao$Doc/"
+
+bcvcorr		hlp=doc$bcvcorr.hlp,	src=rvsao$Util/t_bcvcorr.x
+contpars	hlp=doc$contpars.hlp,	src=rvsao$contpars.par
+contsum		hlp=doc$contsum.hlp,	src=rvsao$contsum.par
+linespec	hlp=doc$linespec.hlp,	src=rvsao$Linespec/t_linespec.x
+listspec	hlp=doc$listspec.hlp,	src=rvsao$Util/t_listspec.x
+emsao		hlp=doc$emsao.hlp,	src=rvsao$Emsao/t_emsao.x
+emplot		hlp=doc$emplot.hlp,	src=rvsao$emplot.cl
+eqwidth		hlp=doc$eqwidth.hlp,	src=rvsao$Eqwidth/t_eqwidth.x
+pemsao		hlp=doc$pemsao.hlp,	src=rvsao$Emsao/t_pemsao.x
+pxcsao		hlp=doc$pxcsao.hlp,	src=rvsao$Xcsao/t_pxcsao.x
+pix2wl		hlp=doc$pix2wl.hlp,	src=rvsao$Util/t_pix2wl.x
+qplot		hlp=doc$qplot.hlp,	src=rvsao$qplot.cl
+qplotc		hlp=doc$qplotc.hlp,	src=rvsao$qplotc.cl
+relearn		hlp=doc$relearn.hlp,	src=rvsao$relearn.cl
+skyplot		hlp=doc$skyplot.hlp,	src=rvsao$skyplot.cl
+sumspec		hlp=doc$sumspec.hlp,	src=rvsao$Sumspec/t_sumspec.x
+wlrange		hlp=doc$wlrange.hlp,	src=rvsao$Sumspec/t_wlrange.x
+velset		hlp=doc$velset.hlp,	src=rvsao$Util/t_velset.x
+wl2pix		hlp=doc$wl2pix.hlp,	src=rvsao$Util/t_wl2pix.x
+xcsao		hlp=doc$xcsao.hlp,	src=rvsao$Xcsao/t_xcsao.x
+xcplot		hlp=doc$xcplot.hlp,	src=rvsao$xcplot.cl
+zvel		hlp=doc$zvel.hlp,	src=rvsao$zvel.cl

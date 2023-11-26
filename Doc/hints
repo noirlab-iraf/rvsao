@@ -1,0 +1,9 @@
+EMSAO:  Turn off smoothing (NSMOOTH=0 or <n> 0) before identifying lines
+        to redo emission line search
+
+EMSAO:  In case of crash with "ERROR: [floating operand error]", try
+        rerunning with vel_init="search".  Chances are the correlation
+        velocity isn't too good, or that it points at a bad line.
+	Another possibility is an inadequate continuum fit.  Try
+	changing the order in contpars by 1 or 2, if EMSAO has been
+	working on your data, or by more if it hasn't yet worked.

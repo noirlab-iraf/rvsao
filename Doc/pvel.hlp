@@ -1,0 +1,85 @@
+.help pvel Jul2010 rvsao
+.ih
+NAME
+pvel -- Compute redshift using the cross-correlation and emission line techniques
+.ih
+USAGE
+pvel spectra
+.ih
+PARAMETERS
+.ls spectra = ""
+List of file names of spectra to analyze.
+@<filename> indicates list should come from file <filename>.
+<filename>[<range>] indicates that a range of apertures in a multispec
+file should be processed, where <range> is a comma- and/or
+hyphen-separated list of numbers.
+.le
+.ls nskip = 0
+Number of files in list to skip
+.le
+.ls ap1 = 1
+First spectrum aperture to process
+.le
+.ls ap2 = 1
+Last spectrum aperture to process
+.le
+.ls specband = 0
+Spectrum band if multispec file
+.ls specext = 0
+FITS extension for spectra (0 if only primary header)"}
+.le
+.ls specdir = ""
+Directory from which to read spectra
+.le
+.ls templates = ""
+List of template spectra
+.le
+.ls tempdir = ""
+Directory for template spectra
+.le
+.ls corr_vel = yes
+Compute cross correlation velocities (yes or no)
+.le
+.ls emis_vel = no
+Compute emission line velocities (yes or no)
+.le
+.ls plot = no
+Plot results on display (yes or no)
+.le
+.ls hard_copy = no
+Make printer hard copies (yes or no)
+.le
+.ls curmode = no
+If yes, wait in cursor mode after each spectrum is processed.  Cursor
+mode commands may be listed by typing "?".
+.le
+.ls verbose = no
+Print what's happening (yes or no)
+.le
+.ls debug = no
+Print everything that happens in pxcsao and/or pemsao (yes or no)
+.le
+ 
+.ih
+DESCRIPTION
+PVEL runs either PXCSAO or PEMSAO or both, so the user doesn't have to
+type a file name in twice.  Set parameters in PXCSAO, PEMSAO, and CONTPARS.
+ap1 and ap2 override specnum.  specext, specband, specdir, templates,
+ tempdir, curmode, hard_copy, plot, and debug override the equivalent
+parameters in XCSAO and EMSAO.  If both XCSAO and EMSAO are being run, the
+image files should be writeable so the cross-correlation velocity can be saved
+to be used as an initial guess at the emission line velocity.
+
+.ih
+EXAMPLES
+To obtain the redshift and dispersion of a single galaxy
+
+        cl> pvel galaxy
+
+To obtain redshifts for a whole night's worth of galaxy spectra:
+
+        cl> pvel @nite1.ls
+
+.ih
+BUGS
+.endhelp

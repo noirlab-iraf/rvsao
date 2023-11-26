@@ -1,0 +1,31 @@
+# Make RVSAO library cross-correlation subroutines
+ 
+$checkout librv.a ../bin
+$update	librv.a
+$checkin librv.a ../bin
+$exit
+
+librv.a:
+	t_xcsao.x	<imhdr.h> <smw.h> <fset.h> rvsao.h xcv.h rvsao.com emv.h emv.com results.com xcor.com xcorf.com
+	t_pxcsao.x	<imhdr.h> <smw.h> <fset.h> rvsao.h xcv.h rvsao.com emv.h emv.com results.com xcor.com xcorf.com
+	xcfit.x		<imhdr.h> <smw.h> <fset.h> rvsao.h xcv.h rvsao.com results.com xcor.com
+	xcorfit.x	rvsao.h rvsao.com results.com xcorf.com
+	xcplot.x	<smw.h> rvsao.h rvsao.com results.com <gset.h> <gio.h> <pkg/gtools.h> <ttyset.h> <fset.h> emv.h emv.com
+	xciplot.x	rvsao.h rvsao.com results.com <gset.h> <gio.h>
+	xcorplot.x	rvsao.h rvsao.com results.com <gset.h> <gio.h>
+	xcsplot.x	<smw.h> rvsao.h rvsao.com results.com <gset.h> <gio.h>
+	xcfile.x	rvsao.h rvsao.com results.com
+	pkfitp.x	rvsao.h rvsao.com
+	pkfitq.x	rvsao.h rvsao.com
+	pkfitc.x
+	pknum.x		rvsao.h	rvsao.com
+	pkwidth.x	rvsao.h	rvsao.com
+	xcrslts.x	<imhdr.h> rvsao.h rvsao.com results.com
+	xcarch.x	rvsao.h rvsao.com results.com corr.com ansum.com
+	xchead.x	<imhdr.h> rvsao.h emv.h rvsao.com results.com emv.com
+	aspart.x
+	buffers.x
+	earlin.x
+	correlate.x
+	xcmin.x
+	;

@@ -1,0 +1,546 @@
+.help pemsao Aug2010 rvsao
+.ih
+NAME
+pemsao -- Compute redshift by identifying shifted emission lines
+.ih
+USAGE
+pemsao spectrum
+.ih
+PARAMETERS
+.ls spectra = ""
+List of file names of spectra to analyze.
+@<filename> indicates list should come from file <filename>.
+<filename>[<range>] indicates that a range of apertures in a multispec
+file should be processed, where <range> is a comma- and/or hyphen-separated
+list of numbers.
+The files should be dispersion-corrected and linear in wavelength.
+.le
+.ls specnum = 0
+If this is nonzero and \fIspectra\fR contains a single file name, this
+is a range of spectrum numbers in a multispec file for which emission
+line velocities will be obtained.  Wavelength dispersion information
+is then read from APNUMn, and velocity information is read from APVELn,
+APVXCn, and APVEMn and saved in APVELn and APVEMn, the values of which
+contain multiple values.  If specnum is zero, velocity information is
+in separate keywords for each value.
+.le
+.ls specband = ""
+Spectrum band if multispec file
+.le
+.ls specext = 0
+FITS extension containing the spectrum
+.le
+.ls skynum = 0
+If this is nonzero, the sky spectrum, which is used for equivalent width
+errors, is read from this spectrum number of the current spectrum file
+.le
+.ls skyband = 0
+Sky band if multispec file
+.le
+.ls specdir = "./"
+Directory containing spectra to analyze
+.le
+.ls linefit = yes
+If yes, search for emission lines fit their positions, and average
+them into a weighted mean velocity for the spectrum.  If no, display
+spectrum with labelled emission lines found in a previous application
+of EMSAO and results from any previous XCSAO run which is archived in
+the image header.
+.le
+.ls fixbad = no
+If yes, replace portions of spectrum given in file \fIbadlines\fR with
+a straight line linking the adjacent points.  This feature can be used
+to eliminate emission and absorption features caused by poor removal of
+night sky emission lines. (added in version 2.0)
+.le
+.ls badlines = "badlines.dat"
+File containing list of starting and stopping wavelengths in Angstroms for
+removal of portions of all object spectra.  All information after the
+second wavelength is a comment field. This file is assumed to be in the
+directory \fIlinedir\fR unless a complete pathname starting with "/" or
+including a "$" is specified (added in version 2.0).
+.le
+.ls renormalize = no
+If yes, renormalize spectrum before fitting by multiplying each pixel
+by 1000 times the mean pixel value for the spectrum.  .  Set this to "yes"
+for fluxed spectra.  If set to "no" and all values of the object spectrum are
+less than 1, the spectrum is renormalized anyway, to avoid crashing the
+program.
+.le
+.ls st_lambda INDEF
+Starting wavelength in angstroms of portion of spectrum to use
+If INDEF, start at beginning of spectrum.
+.le
+.ls end_lambda INDEF
+Ending wavelength in angstroms of portion of spectrum to use
+If INDEF, end at end of spectrum.
+.le
+.ls nsmooth 10
+Number of times the spectrum is smoothed using a 1-2-1
+sliding box before the emission line search occurs.  This smoothed
+spectrum is also the version which is displayed.
+.le
+.ls vel_init "search"
+The type of velocity to be used for the initial guess at where the emission
+lines should be.
+If "search", look for the lines in the \fIemsearch\fR file.
+If "guess", use \fIczguess\fR.
+If "correlation", use the \fICZXC\fR parameter in the file header which
+was set by XCSAO.
+If ("cortemp", use the velocity obtained by XCSAO when cross-correlating this
+spectrum against the template specified by \fIcortemp\fR.
+If "emission", use the \fICZEM\fR file header parameter which was set by
+a previous run of EMSAO.
+If "file", use the \fIVELOCITY\fR parameter from the header, a combined
+velocity which is set by both EMSAO and XCSAO.
+.le
+.ls czguess 0.
+Initial guess at the radial velocity if >1 or z if <1.  It is used only if
+vel_init is "guess".
+.le
+.ls cortemp ""
+Name of template from which to use cross-correlation velocity. (new in 2.0)
+.le
+.ls wspan 10.
+Wavelength in angstroms to search around redshifted line center.  This
+should always be less than the distance between the closest lines for
+which you are searching.
+.le
+.ls linesig 2.0
+A line peak must be this many standard deviations above the continuum to
+qualify as a line.
+.le
+.ls emsearch "emsearch.dat"
+File containing list of emission lines used to determine an initial
+velocity guess if \fIvel_init\fR is "search".  Each line contains:
+.br
+	Center wavelength of line in angstroms
+.br
+	Starting wavelength in angstroms for search for this line
+.br
+	Ending wavelength in angstroms for search for this line
+.br
+	Name of line (terminated by end of line or space)
+.le
+.ls emlines "rvsao$lib/emlines.dat"
+File containing list of emission lines, where the each line contains:
+.br
+	Center wavelength of line in angstroms
+.br
+	Starting wavelength in angstroms for continuum for this line
+.br
+	Ending wavelength in angstroms for continuum for this line
+.br
+	Half-width in angstroms for region to fit for this line
+.br
+	Name of line (terminated by end of line or space)
+.le
+.ls linedir = rvsao$lib/
+Directory for emission and absorption information files.  If the name of
+one of the individual files containis "/" or "$", it is assumed to be a
+full path name, and \fIlinedir\fR is not used.
+.le
+.ls npfit 2
+Number of pixels to fit around line peak (+-)
+.le
+.ls nlcont 1
+Number of coefficients in line continuum fit (0-3).  An overall continuum
+fit is subtracted, but the fit may not be good enough to remove the local
+continuum.  If 0, no additional continuum is fit for each line.  If the
+continuum is poorly subtracted using the parameters in \fIcontpars\fR,
+values of more than 0 for \fInlcont\fR can cause trouble.
+.le
+.ls esmooth 0
+Number of times the spectrum is smoothed using a 1-2-1 sliding box
+before the emission lines are fit.  Normally 0, it can be set to 1 or 2
+for very noisy data when the fitting subroutine may otherwise be
+unable to fit a continuum.  It should be set no higher to avoid distorting
+the emission line profiles.
+.le
+.ls emcombine "emcomb.dat"
+File containing list of groups of emission lines which should be fit together.
+Each entry contains the following information for one group of two to five lines:
+.br
+	Number of combined emission lines
+.br
+	Number of angstroms to add to fit beyond left and right line centers
+.br
+	For each emission line:
+.br
+		Center wavelength in angstroms
+.br
+		Relative line height
+.le
+.ls mincont 0.0
+If continuum is greater than this value, compute the equivalent width
+of the current line, which is the width the line would be if it were as high
+as the continuum is deep.  If the continuum is less than or equal to this
+value, compute the area of the line in counts times wavelength.  When
+working with continuum subtracted spectra or spectra where the emission lines
+are so strong that there is minimal continuum, make this value larger than
+the largest possible continuum fit value to get consistently computed numbers.
+(added in 2.0)
+.le
+.ls lwmin 0.4
+Minimum fraction of mean line width for individual line (added in 2.0)
+.le
+.ls lwmax 1.7
+Maximum fraction of mean line width for individual line (added in 2.0)
+.le
+.ls lsmin 2.0
+Minimum equivalent width in sigma for individual line (added in 2.0)
+.le
+.ls sigline 0.0
+Velocity error if single line found.  Use gaussian fit error if 0 or
+INDEF.  This value may need to be set higher to use a good, but different
+cross-correlation properly when the program computes a combined velocity.
+.le
+.ls disperr = 0.01
+RMS dispersion error in Angstroms
+.le
+.ls vel_corr "file"
+Spectrum velocity correction to the solar system barycenter.  Set to
+"none" if spectrum has already been shifted or if this correction is
+unnecessary.  If "file", \fIBCV\fR is used if present in the file header,
+or else \fIHCV\fR.  If "hfile", the header parameter \fIHCR\fR is always
+used.  If neither is found, no correction is made.  If "heliocentric"
+or "barycentric" corrections are chosen, position and time parameters
+are read from the spectrum data file header.  \fIDATE-OBS\fR (date in
+format 'dd-mm-yy') \fIUT\fR (U.T. at end of exposure as 'hh:mm:ss')
+and \fIUTOPEN\fR (U.T. at start of exposure as 'hh:mm:ss') or
+\fIEXPOSURE\fR (length of exposure in seconds) are used to compute
+the midtime of the exposure.  \fIRA\fR (right ascension as 'hh:mm:ss.ss'),
+\fIDEC\fR (declination as 'dd:mm:ss.ss'), and \fIEPOCH\fR (epoch of
+coordinates defaults to 1950.0) give the position of the object whose
+spectrum this is.  \fISITELONG\fR (observatory longitude as 'dd:mm:ss.ss'
+or degrees), \fISITELAT\fR (observatory latitude as 'dd:mm:ss.ss' or
+degrees), and \fISITEELEV\fR (observatory altitude in meters) give the
+observatory position.
+.le
+.ls report_mode = 1
+Format of report sent to \fIlogfiles\fR.  A tab table with column headings
+is written if the mode flag is negated.
+.ls =1  Full information on each emission line found
+.le
+.ls =2  One line per spectrum, with combined, cross-correlation, and
+emission line velocities, number of lines found and fit, and a list of
+names and wavelengths of the lines which were used in the fit.
+.le
+.ls =3  One line per spectrum, with combined, cross-correlation, and
+emission line velocities, number of lines found and fit, and velocities
+for all possible reference lines, with velocities of lines not used in
+the final fit set to 0.
+.le
+.ls =4  One line per spectrum, with file name, instrument, object, right
+ascension, declination, altitude, azimuth, Julian date, exposure, emission
+velocity and error, cross-correlation velocity, error, and R-value (for
+the template specified by cortemp or best template value if cortemp is ""),
+and the combined velocity and error. Following the number of lines found
+and the number of lines fit, the velocity, error, height, width, and
+equivalent width are then given for each line, with zero values indicating
+that the line was not used in the fit. If the continuum under the line is
+less than mincont, the area of the line is given instead of the equivalent
+width.
+.le
+.ls =5 Same as mode 2, but emission line template cross-correlation velocity
+is always given as the cross-correlation velocity.
+.le
+.ls =6 Same as mode 3, but emission line template cross-correlation velocity
+is always given as the cross-correlation velocity.
+.le
+.ls =8 Single line report with line offset, error, height, width, and
+equivalent width for each emission line
+.le
+.ls =9 Single line report with line offset in Angstroms for each emission line
+.le
+.ls =10  One line per spectrum, with combined, cross-correlation, and
+emission line velocities, number of lines found and fit, and a list of
+names and wavelengths of the lines which were used in the fit, without
+equivalent width error.
+.le
+.ls =11 Single line report with line offset in pixels for each emission line
+.le
+
+.le
+.ls archive = no
+If yes, save emission line results in SAO TDC archive record.
+.le
+.ls save_vel = no
+If yes, save results in the IRAF image header.  Combined velocity and
+error are stored as \fIVELOCITY\fR and \fIVELERROR\fR.  Emission line
+velocity and error in IRAF image header as \fICZEM\fR and \fICZEMERR\fR,
+and the number of lines used in the fit is in \fICZEMNLF\fR
+.le
+.ls verbose = yes
+If yes, results of the emission line search are logged.
+.le
+.ls logfiles = "STDOUT,emsao.log"
+All results from \fIemvel\fR are recorded in these files.
+.le
+.ls device = "stdgraph"
+Device on which to display graphic summary of results.
+.le
+.ls hardcopy = no
+Print graphic summary of results on \fIplotter\fR.
+.le
+.ls displot = yes
+If yes, graph data on terminal (yes or no)
+.le
+.ls plotter = "stdplot"
+If \fIhardcopy\fR is yes, make hardcopies of graphs on this device.
+.le
+.ls dispmode = 2
+Graphical display mode (2=with line list 3=full screen)
+.le
+.ls vel_plot "emission"
+The redshift of this velocity is used to compute the positions of the
+absorption and emission lines which are flagged in the display.  Choices
+are emission, correlation, or combination (a weighted combined velocity).
+.le
+.ls curmode = yes
+If yes, stop in cursor mode after plotting and labelling spectrum and
+wait for cursor commands described below.
+.le
+.ls dispem = yes
+If yes, flag positions of emission lines which have been found.  Those
+used in the velocity fit are plotted as solid lines.  The "-" cursor
+command can be used to delete these from the fit.  Those lines found but
+omitted from the fit are plotted as dashed lines.  The "+" cursor
+command can be used to add them to the fit.
+.le
+.ls dispabs = yes
+If yes, flag positions of absorption lines.
+.le
+.ls ablines "ablines.dat"
+File containing list of absorption lines to plot, where the each line contains:
+.br
+	Center wavelength of line in angstroms
+.br
+	Name of line (terminated by end of line or space)
+.le
+.ls velfit = yes
+If yes, combine the redshifts found for individual emission lines into a
+single emission line velocity. (eliminated from 1.8 on)
+.le
+.ls nlfit = 0
+Number of emission lines found and fit
+.le
+.ls emline = ""
+Name of first emission line
+.le
+.ls wlrest = 0
+Rest wavelength of first emission line
+.le
+.ls velocity = 0
+Velocity for all emission lines
+.le
+.ls velerr = 0
+Velocity error for all emission lines
+.le
+.ls lineheight = 0
+Height of first emission line
+.le
+.ls linewidth = 0
+Width of first emission line
+.le.
+.ls lineeqw = 0
+Equivalent width (or area, if continuum is less than \fImincont\fR) of first emission line
+.le
+.ls meanvel = 0.
+Mean velocity in km/sec
+.le
+.ls meanerr = 0.
+Mean velocity error in km/sec
+.le
+.ls medvel = 0.
+Median velocity in km/sec
+.le
+.ls medq1 = 0.
+First quartile velocity for multiple orders
+.le
+.ls medq2 = 0.
+Second quartile velocity for multiple orders
+.le
+.ls meanpix = 0.
+Mean pixel shift of first line 
+.le
+.ls medpix = 0.
+Median pixel shift of first line
+.le
+.ls meandwl = 0.
+Mean wavelength shift of first line in Angstroms
+.le
+.ls meddwl = 0.
+Median wavelength shift of first line in Angstroms
+.le
+.ls obj_plot yes
+If yes, a plot of the object spectrum is displayed before the emission
+lines are searched for.
+.le
+.ls contsub_plot = no
+Plot the continuum-subtracted data
+.le
+.ls debug = no
+If yes, intermediate values of the parameters are recorded in the log files.
+Too much information is printed to be useful for anything but debugging.
+.le
+.ls nsum = 1
+Number of pixels to sum across dispersion
+.ls cursor = ""
+Graphics cursor input.  When null the standard cursor is used otherwise
+the specified file is used.
+.le
+ 
+.ih
+DESCRIPTION
+
+\fIpemsao\fR finds emission lines, computes redshifts for each identified line,
+and combines them into a single radial velocity.  The results are written into
+the parameter file for this task and may also be
+graphically displayed or printed.  If \fIcurmode\fR is set, the graphic
+cursor remains active after the spectrum is plotted and labelled, and
+the following keystrokes may be used to redisplay and/or rework the
+fit (in addition to the standard IRAF cursor facilities, a menu of which
+can be obtained by typing :.help):
+ 
+.ls ?
+Print list of \fIemsao\fR cursor commands.
+.le
+.ls a
+Set redshift guess from an absorption line at the cursor position.  Respond to
+the prompt with either the line name from the ablines.dat file or a specific
+wavelength, which doesn't have to be one of the tabulated lines, in Angstroms.
+It might help to set the smoothing to 0 using \fIn\fR before doing this.
+.le
+.ls b
+Set blue limit of spectrum to be searched to current cursor position. 
+.le
+.ls c
+Force the final velocity to a specific value which may be 
+.ls e the emission line velocity, 
+.le
+.ls x the cross-correlation velocity as read from the spectrum header, 
+.le
+.ls c the combination velocity as computed by emsao, 
+.le
+.ls g the initial guess as set by emsao.vel_init, 
+.le
+.ls s a specific velocity and error to be typed in. 
+.le
+.le
+.ls d
+Replaces a region between the marked vertical cursors with interpolated
+values from the edges of the marked region.  This is typically used to
+eliminate poorly subtracted night sky lines or emission lines.
+\fIx\fR can be used to cancel the first \fId\fR.
+.le
+.ls e
+Set redshift guess from an emission line at the cursor position.  Respond to
+the prompt with either the line name from the ablines.dat file or a specific
+wavelength, which doesn't have to be one of the tabulated lines, in Angstroms.
+It might help to set the smoothing to 0 using \fIn\fR before doing this.
+.le
+.ls f
+Refit the redshift. If lines have been added or deleted, a new weighted
+mean is computed. If a new initial guess has been set or line fitting
+parameters have been modified, a new line search is done. 
+.le
+.ls g
+Change number of times spectrum is smoothed (nsmooth) to the number given
+in response to prompt. It may help to set this to 0 before identifying
+emission or absorption lines using e or a. 
+.le
+.ls i
+Reset the initial velocity for the line search. 
+.le
+.ls k
+Toggle between display with continuum subtracted and display with continuum
+included (default).  This works for both dispmode=1 and dispmode=2.
+.le
+.ls l
+Reset the \fIlinesig\fR and \fIwspan\fR parameters which determine the
+the number of standard deviations above the continuum at which to define
+an emission line and the wavelength to search around the redshifted center
+of an individual line. 
+.le
+.ls m
+Change number of times spectrum is smoothed (\fIesmooth\fR) for line fitting
+to the number given in response to the prompt.  This should be zero unless
+high noise levels are preventing good line fits in which case it may be set
+to 1, or at most, 2.
+.le
+.ls n
+Disaprove the final velocity and set the quality flag to X.
+.le
+.ls p
+Replot the current display.
+.le
+.ls q
+Quit and exit.
+.le
+.ls r
+Set the red limit of spectrum to be searched to current cursor position.
+.le
+.ls s
+Set the redshift guess from an entered rest wavelength for the current
+cursor position.
+.le
+.ls t
+Use the velocity from the nth template in the list displayed in a
+emsao.dispmode=1 summary display. 
+.le
+.ls u
+Forces the current spectrum to be replotted at the original scale.
+.le
+.ls v
+Select the source of the redshift at which the absorption and emission
+lines are plotted.  It may be an emission, correlation, or combined
+radial velocity from the image header as \fICZEM\fR, \fICZXC\fR, or
+\fIVELOCITY\fR.
+.le
+.ls w
+Show rest and observed wavelength at cursor position.
+.le
+.ls x
+Cancel \fId\fR and \fIz\fR commands before second keystroke.
+.le
+.ls z
+Replots the region of the spectrum in wavelength between successive
+uses.  \fIx\fR can be used to cancel the first \fIz\fR.
+.le
+.ls +
+Add closest found emission line to the velocity fit if it has been
+dropped, overriding program's selection criteria.  If this doesn't work,
+use the \fIv\fR command to plot using the emission velocity.
+.le
+.ls '-'
+Drop closest found emission line from the velocity fit if it has been
+used, overriding program's selection criteria.  If this doesn't work,
+use the \fIv\fR command to plot using the emission velocity.
+.le
+.ls '.'
+Cancel delete (d) or zoom (z) command. 
+.le
+.ls '/'
+Toggle between spectrum plus summary display (dispmode=1) and full screen
+spectrum display (dispmode=2).
+.le
+.ls @
+Make hard copy of graph to \fIplotter\fR.
+.le
+.ih
+EXAMPLES
+To obtain the redshift and dispersion of a single galaxy
+
+        cl> emsao galaxy
+
+To obtain redshifts for a whole night's worth of galaxy spectra:
+
+        cl> emsao @nite1.ls
+
+where the file nite1.ls contains the name of the galaxy images.
+.ih
+SEE ALSO
+On-line help is available on the World Wide Web at
+http://tdc-www.harvard.edu/iraf/rvsao/pemsao
+.endhelp

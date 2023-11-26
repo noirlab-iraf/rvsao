@@ -1,0 +1,267 @@
+RVSAO -- An IRAF package to obtain radial velocities from spectra
+ 
+The package RVSAO defined in this directory was developed by Jessica Mink at
+the Harvard-Smithsonian Center for Astrophysics from the redshift package
+originally written by Gerard Kriss at Johns Hopkins University and modified
+significantly by Steve Levine at the University of Wisconsin.  It obtains
+radial velocities and velocity dispersions using cross-correlation methods
+or emission line fits.  It consists of several SPP tasks:
+XCSAO and PXCSAO to cross-correlate spectra,
+EMSAO and PEMSAO to find emission lines in spectra,
+BCVCORR to compute solar system barycentric velocity correction,
+SUMSPEC to add and/or modify spectra,
+LINESPEC to creat synthetic emission line templates,
+EQWIDTH to compute equivalent widths of lines in spectra,
+WLRANGE Return the wavelength overlap range for a list of spectra
+LISTSPEC List pixel, wavelength, delta wavelength, and/or pixel value for spectrum image
+PIX2WL Compute the wavelength at a given pixel in a spectrum
+WL2PIX Compute the pixel at a given wavelength in a spectrum
+VELSET Artificially change the redshift of (log-wavelength) spectra
+plus several CL scripts.
+
+If you have any problems, please contact Jessica Mink, jmink@cfa.harvard.edu.
+
+A task, RELEARN, has been provided to aid in updating parameters.  Run it
+instead of UNLEARN to keep your current parameters settings while adding
+new parameters.  It can fail when parameters are dropped; just re-run it
+until it works, and things will be OK.
+
+A set of templates commonly used at the CfA is included in the Templates/
+subdirectory.  Someday, there will be documentation about them.
+
+After the Revision Notes, you will find installation instructions.
+
+A fairly complete description of this package has been published in the
+August 1998 issue of the Publications of the Astronomical Society of the
+Pacific:
+http://adsabs.harvard.edu/cgi-bin/nph-bib_query?bibcode=1998PASP..110..934K
+
+For later publications, see http://tdc-www.harvard.edu/iraf/rvsao/
+
+***************************************************************************
+
+RVSAO Revision Log
+
+2.8.2, May 2, 2014
+* Edit cosmic rays out of a spectrum by resetting a point at a time
+* (using the , key) or by linearly interpolating between points on
+* either side of a cosmic ray (using the d key twice).  The edited
+* spectrum is automatically written out if you are running qplot or
+* are saving information to the spectrum header and leave with "q".
+XCSAO,EMSAO,PXCSAO,PEMSAO: Write back edited spectrum
+xcfit.x: Call putspec to update spectrum after editing it (2014-05-02)
+emplot.x: Fix bug which reversed red and blue limits (2013-03-15)
+emplot.x: Add , command to replace individual pixel values (2014-05-01)
+emplot.x: Add > command to write out edited spectrum (2014-05-02)
+
+2.8.1, May 25, 2012
+PEMSAO: Add maxlength parameter to set output spectrum file length in mode 11
+xcrslts.x: add parameter maxlength to allow longer filename in mode 11
+
+2.8.0, April 13, 2012
+LISTSPEC: Add velform format for velocity per pixel output
+SKYPLOT: Base on PEMSAO instead of XCSAO, like EMPLOT
+juldate.x: Do not recompute HJD if already in header
+juldate.x: Check for BJD as well as HJD
+vcombine.x: Do not add constant dispersion error of 15 km/sec any more
+xcfile.x: Only include file name in xc file if given full pathname
+xcfile.x: Drop ".ms.fits" and ".fits" from object and template filenames
+xcfile.x: Add ".xcor" file extension to output filename
+xcfile.x: Fix bug by redimensioning title from SZ_LINE to SZ_PATHNAME
+Add new shell script rvsaopar to set RVSAO task parameters from a dpar file
+Add new shell script pxcsao to execute PXCSAO
+
+2.7.9, August 11, 2010
+PEMSAO: Write median (MEDPIX) and mean (MEANPIX) pixel shift to image header
+PEMSAO: Do not write back to parameter file if save_vel=yes
+PEMSAO: Skip apertures where no lines are found for means and medians
+PEMSAO and PXCAO: Set FITS extension with specext keyword
+PXCSAO and XCSAO: initialize all pointers to NULL; free only if not NULL
+xcfit.x: Return properly if there is an error reading a spectrum
+getspec.x: Return error if spectrum has no non-zero pixels
+getimage.x:  If stacked spectra and CD2_2 is not set, set it to 1
+getimage.x:  Always add extension to file name, even if it is zero
+
+2.7.8, November 20, 2009
+XCSAO, PXCSAO, EMSAO, PEMSAO: Zoom and line identification changes in emplot.x
+LISTSPEC,PIX2WL,WL2PIX: Increase image string size to SZ_PATHNAME(511) from SZ_FNAME(255)
+emplot.x: Fix zoom at left and right edges of a displayed spectrum.
+          Replot immediately with new velocity if line selected
+          Mark VELOCITY as being used if it is guessed from a line
+          Change to correlation velocity automatically if switching templates
+emplot.x: zoom and line selection
+getimage.x: Increase image string size to SZ_PATHNAME(511) from SZ_FNAME(255)
+
+2.7.7, July 16, 2009
+XCSAO: If DIVCONT is T in object spectrum, divide it by its continuum and
+       subtract 1.0 instead of subtracting the continuum; do the same with
+       all templates, if they have no SUBCONT flag.
+XCSAO,EMSAO: If contspec.order is zero, do not remove continuum
+XCSAO,EMSAO,SUMSPEC: If dividing continuum, normalize by mean of continuum
+       to get the true variation in count rates.
+EQWIDTH: Compute sigma according to John Huchra's new formula
+
+2.7.6, June 15, 2009
+WLRANGE: New task to return the overlapping wavelength range for a list of spect
+ra
+
+2.7.5, June 10, 2009
+EQWIDTH: Major changes to make it more robust and handle rest wavelengths right
+EMSAO, PEMSAO: Fix multiple aperture plotting so it doesn't crash or print blank
+ lines
+PEMSAO: Compute lambda/pix by offset from line center to avoid dividing by
+        zero if line is exactly at rest wavelength (as for a sky or
+        calibration lamp line)
+SUMSPEC: Fix bugs so that rebinned wavelength range can be computed from
+         overlap
+emrslts.x: Return immediately if no log file is set
+emplot.x: Get number of apertures from im structure, not smw
+emlines.dat: Add Lyman Beta and Gamma; move Lyamn Alpha from 1215.7 to 1215.67
+             Fix name of 1240.0 from LyA to NV
+
+2.7.4, April 24, 2009
+BCFCORR: Add SUBGRAV parameter to make solar gravitational redshift subtraction
+         from twilight sky spectra optional
+LISTSPEC: Allow multiple apertures and write them to separate files
+EQWIDTH: Fix error computation for equivalent widths and indices
+SUMSPEC: Handle spectra with PIXEL WCS correctly
+getimage.x: Set RA, DEC, ST, HA to 0:00 if not in header [for shdr_open()]
+juldate.x: Add MJD as possible JD header keyword; return hjd = jd if
+           there is no pointing direction in the image header
+
+2.7.3, March 31, 2009
+Add new shell scripts in Shell/ to run most RVSAO tasks on the Unix/Linux
+command line.
+
+2.7.2, March 13, 2009
+XCSAO: Add option to shift orders when cross-correlating echelle spectra
+
+2.7.1, February 20, 2009
+EMSAO,XCSAO: Assume RA is in degrees if decimal keyword value, not hours
+
+2.7.0, January 30, 2009
+SUMSPEC: Fix bug which put back heliocentric velocity correction when shifting
+         to a specific velocity and delete IRAF WCS keywords if one spectrum
+         is being rebinned.
+EQWIDTH: Fix error of index so that it is at least closer to correct.
+         Fix bug so that a lack of a VELOCITY or BCV keyword does not crash
+         the program.  Clean up exposure scaling.
+
+See the NEWS file for the earlier history of the software.
+
+***************************************************************************
+
+To install this package in your local IRAF system, take the following steps:
+ 
+1)	The package is distributed as a tar archive; IRAF is distributed
+	with a tar reader.  The tar archive may be obtained by magnetic
+	tape or anonymous ftp.  For magnetic tape go to step [2] and when
+	reading the tar archive simply mount the tape and use the tape
+	device name for the archive name in step [4].  To obtain the package
+	via ftp (assuming a UNIX computer):
+
+	    % ftp cfa-ftp.harvard.edu
+	    login: anonymous
+	    password: [your user name]
+	    ftp> cd pub/iraf
+	    ftp> get rvsao-2.8.0.readme
+	    ftp> binary
+	    ftp> get rvsao-2.8.0.tar.gz
+	    ftp> quit
+	    % ls -l
+	    -rw-r--r--  1 mink          xxxx xxx xx xx:xx rvsao-2.8.0.readme
+	    -rw-r--r--  1 mink        xxxxxx xxx xx xx:xx rvsao-2.8.0.tar.gz
+	    %
+
+2)	Create a directory to contain the RVSAO external package files.  This
+	directory should be outside the IRAF directory tree and must be owned
+	by the IRAF account.  In the following examples, this root directory
+	is /local/rvsao/.  Make the appropriate file name substitutions for
+        your site.
+ 
+3)	Log in as IRAF and edit the extern.pkg file in the hlib directory to
+	define the package to the CL.  From the IRAF account, outside the CL,
+	you can move to this directory with the command:
+
+            % cd $hlib
+
+	Define the environment variable rvsao to be the pathname to the rvsao
+	root directory.  UNIX pathnames must be terminated with a '/'.
+	Edit extern.pkg to include:
+
+            reset rvsao	= <directory>/rvsao-2.8.0/
+            task  rvsao.pkg   = rvsao$rvsao.cl
+
+	or, to avoid conflicts with earlier versions or the IRAF rv package,
+
+            reset r2rvsao	= <directory>/rvsao-2.8.0/
+            task  r2rvsao.pkg   = r2rvsao$r2rvsao.cl
+ 
+	Near the end of the hlib$extern.pkg file, update the definition
+	of helpdb so it includes the rvsao help database, copying the syntax
+	already used in the string.  Add this line before the line containing
+	a closing quote:
+ 
+	    ,rvsao$lib/helpdb.mip\
+
+	or, if using r2rvsao,
+ 
+	    ,r2rvsao$lib/helpdb2.mip\
+ 
+4)      Add to hlib$clpackage.men the package description:
+ 
+            rvsao - Radial velocity package from SAO
+ 
+	or, if using r2rvsao,
+ 
+            r2rvsao - Radial velocity package from SAO
+ 
+5)	Unpack the tar file into the RVSAO root directory.
+
+	On a UNIX system, where ftpdir is the pathname of the directory
+	into which the package was ftp'ed and rvsao is the RVSAO root
+	directory:
+	    % cd $rvsao (or $r2rvsao)
+	    % cd ..
+	    % zcat $ftpdir/rvsao-2.8.0.tar.gz | tar xvf -
+
+	The archive file can be deleted once the package has been
+	successfully installed.
+ 
+6)      Restart IRAF and "cd rvsao" or "cd r2rvsao".
+
+7)	Symbolically link the appropriate binary directory to bin.
+	bin is originally linked to bin.generic for distribution.
+
+        On a SPARCstation running Solaris, type
+	    cl> mkpkg ssun
+
+        On a PC running Redhat Linux, type
+	    cl> mkpkg redhat
+
+        On an Apple Macintosh running OS X on an Intel processor, type
+	    cl> mkpkg macintel
+
+        On an Apple Macintosh running OS X, type
+	    cl> mkpkg macosx
+
+        On a PC running Cygwin, type
+	    cl> mkpkg cygwin
+
+        On a PC running Linux, type
+	    cl> mkpkg linux
+
+	For other architectures, make a directory of the proper bin.{arch}
+	name, and link it to bin
+
+8)      Make the package by typing
+	    cl> mkpkg update >&spool
+
+	The spool file should be reviewed upon completion to make sure
+	there were no errors.
+
+9)	Up-to-date hypertext help is available on the World Wide Web at
+
+	    http://tdc-www.harvard.edu/iraf/rvsao/
+
+-Jessica Mink, SAO Telescope Data Center, 2012-05-25

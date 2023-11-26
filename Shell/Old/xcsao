@@ -1,0 +1,64 @@
+#!/data/IRAF2.11/iraf/bin.ssun/cl.e -f
+# This script runs XCSAO from a Unix command line
+# Replace the path in the first line with one appropriate to your machine
+
+string args1
+string uprm, hm
+
+# Set machine type appropriately
+set arch=".ssun"
+
+# Set the terminal type.
+if (envget("TERM") == "sun") {
+    stty gterm
+} else if (envget("TERM") == "xterm") {
+    stty xterm
+} else if (envget("TERM") == "network") {
+    stty vt100
+} else {
+    stty xterm
+}
+
+# Set the IRAF home and parameter directories
+if (defvar("irafhome")) {
+    hm = envget("irafhome")
+    i = strlen(hm)
+    if (substr(hm, i, i) == "/")  
+        set (home = hm)
+    else
+        set (home = hm // "/")
+    set uparm = "home$uparm/"
+    }
+else {
+    hm = envget ("HOME")
+    set (home = hm // "/IRAF/")
+    set uparm = "home$uparm/"
+    }
+
+if (defvar("UPARM")) {
+    uprm = envget("UPARM")
+    i = strlen(uprm)
+    if (substr(uprm, i, i) == "/")  
+        set (uparm = uprm)
+    else
+        set (uparm = uprm // "/")
+  }
+
+# Set the user name which may appear on graphical output
+if (envget("USER") != "") {
+    set user = envget("USER")
+    }
+
+# Load the RVSAO package without displaying the banner
+rvsao motd-
+
+# The following lines set the path to the templates we use at SAO
+saotdc
+archive
+args1="tempdir=archive$templates/"
+
+# Execute the task
+printf ("xcsao %s %s\n", args, args1) | cl() 
+
+logout
+

@@ -1,0 +1,10 @@
+OII 3727.3 16.0 none OIIblue 3675.0 50.0 none OIIred 3735.0 50.0 none
+OIII 4363 20.0 none OIIIblue 4300.0 20.0 none OIIIred 4400.0 20.0 none
+H-beta 4861.0 20.0 none Hbblue 4800.0 20.0 none Hbred 4900.0 20.0 none
+OIII 4959 20.0 none OIIIblue 4900.0 20.0 none OIIIred 4980.0 20.0 none
+OIII 5007 20.0 none OIIIblue 4980.0 20.0 none OIIIred 5100.0 20.0 none
+OI 6300 20.0 none OIblue 6250.0 20.0 none OIred 6400.0 20.0 none
+Halpha 6563.0 20.0 none Hablue 6450.0 100.0 none Hared 6650.0 30.0 none
+NII 6584 20.0 none NIIblue 6450.0 50.0 none NIIred 6650.0 30.0 none
+SII 6717 20.0 none SIIblue 6650.0 50.0 none SIIred 6780.0 20.0 none
+SII 6731 20.0 none SIIblue 6650.0 50.0 none SIIred 6780.0 20.0 none

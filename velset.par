@@ -1,0 +1,9 @@
+# Parameters for SETVEL task of IRAF package RVSAO 2.3
+
+input,s,a,"",,,Input spectra
+newvel,r,a,0.,,,New redshift in km/sec or Z
+output,s,a,"",,,Output spectra or directory
+velz,b,h,no,,,New redshift in Z instead of km/sec (yes or no)
+shift,b,h,yes,,,Shift(yes) or set(no) wavelengths by newvel
+verbose,b,h,yes,,,Print operations ?
+mode,s,h,ql

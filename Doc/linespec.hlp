@@ -1,0 +1,152 @@
+.help linespec Aug99 rvsao
+.ih
+NAME
+linespec -- Make a spectrum from a list of emission and/or absorption lines
+.ih
+USAGE
+linespec linefile specfile
+.ih
+PARAMETERS
+
+.ls linefile ""
+Filename with list of emission or absorption lines in the format
+.br
+	Center wavelength of line in Angstroms
+.br
+	Half-width of line:  in Angstroms if positive,
+.br
+			     in km/sec if negative
+.br
+	Height of line in counts (this is arbitrary)
+.br
+	Name of line
+.le
+.ls linedir ""
+Directory for line list (null string means current directory)
+.le
+.ls linewidth 2.0
+Half-width at half-max of Gaussian emission lines in Angstroms
+This instrumental function is convolved with the spectrum from linefile.
+.le
+.ls maxwidth no
+Use maximum of line or instrument width (yes) or convolve instrument with
+spectrum (no).
+.le
+.ls zspec 0
+Delta lambda / lambda to which to shift individual spectral lines. This
+is useful for making spectra for very distant objects and supercedes
+velspec if it is not zero. 
+.ls velspec 0
+If this is not zero, shift the wavelengths of all specified lines to this
+velocity.
+.le
+.ls continuum 0 
+Continuum level for output spectrum. This is useful if software to be
+used on the created spectrum has problems with a continuum of zero or
+absorption lines with negative nadirs. 
+.le
+.ls specobj = ""
+Title for output spectrum
+.le
+.ls specfile = ""
+File name for output spectrum
+.le
+.ls specdir = ""
+Directory for output spectrum (null string means current directory)
+.le
+.ls st_lambda = INDEF
+Starting wavelength in angstroms for output file
+.le
+.ls end_lambda = INDEF
+Ending wavelength in angstroms for output file
+.le
+.ls pix_lambda 0.25,
+Wavelength per pixel in Angstroms
+.le
+.ls spec_plot = yes
+If yes, a plot of the output spectrum is displayed.
+Cursor commands are activated for zooming in on a portion of the
+spectrum and hard copies may be made to stdplot using the \fI@\fR command.
+If maxwidth is no, the spectrum is displayed both before and after it is
+convolved with the instrumental Gaussian.
+.le
+.ls spec_int no
+If yes, interact with the graph of the output spectrum
+.le
+.ls device = "stdgraph"
+Interactive device on which to display a graphic summary of XCSAO's results.
+.le
+.ls plotter = "stdplot"
+Second, non-interactive device on which to plot the graphic summary of results.
+.le
+.ls verbose yes 
+     Print summary to log file (yes or not).
+.le
+.ls logfiles = "STDOUT,linespec.log"
+All results from LINTEMP are recorded in these files.
+.le
+.ls debug = no
+If yes, values of the parameters fit to the selected peak
+are recorded in the log files.  This is most useful for debugging.
+.le
+.ls cursor = ""
+Graphics cursor input.  When null the standard cursor is used otherwise
+the specified file is used.
+.le
+ 
+.ih
+DESCRIPTION
+LINESPEC reads a list of positions of emission and/or absorptions lines
+and creates a spectrum with Gaussian lines of the the indicated
+half-widths at the indicated positions, writing a one-dimensional IRAF
+file with the appropriate keywords in the header.  If velspec is nonzero,
+the emission lines are shifted to that redshift velocity.
+ 
+.ih
+CURSOR
+The following keystrokes are active for spectrum template plots in addition
+to the normal IRAF cursor facilities (a list of those is available with
+the command ":.help"):
+
+.ls @
+Make a hard copy on the device designated by \fIplotter\fR.
+.le
+.ls c
+Prints cursor position in x and y.  This is the default.  All other
+undefined keys perform this same function.
+.le
+.ls d
+Replaces a region between the marked vertical cursors with interpolated
+values from the edges of the marked region.  This is can be used to eliminate
+lines from a template without changing the line list, though the line will
+still appear in the image header.
+.le
+.ls n
+Smooth spectrum n times before plotting.  This affects the actual spectrum,
+so it is usually not a good idea to exit from a plot with this set to any
+value other than 0.
+.le
+.ls q
+Quit and exit.
+.le
+.ls r
+Forces a replot of the current spectrum at the original scale.
+.le
+.ls u
+Redisplay the entire plot after zooming.
+.le
+.ls z
+Zoom in on the region marked by two successive <z>'s
+.le
+
+.ih
+EXAMPLE
+To make a emission line template from a list of commonly observed
+emission lines:
+
+        cl> linespec emtemp.dat emtemp
+.ih
+SEE ALSO
+On-line help is available over the World Wide Web at
+http://tdc-www.harvard.edu/iraf/rvsao/linespec
+.endhelp

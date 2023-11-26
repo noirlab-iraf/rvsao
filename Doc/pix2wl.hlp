@@ -1,0 +1,119 @@
+.help pix2wl Aug2008 rvsao
+.ih
+NAME
+pix2wl -- Compute the wavelength at a given pixel in a spectrum
+.ih
+USAGE	
+.nf
+pix2wl spectrum pixel
+.fi
+.ih
+PARAMETERS
+.ls spectrum
+Spectrum image file with dispersion function
+.le
+.ls specext = 0
+Spectrum extension number in multiextension FITS image
+.le
+.ls specnum 0
+Spectrum number in multispec image (order in echelle image)
+.le
+.ls specband 0
+Spectrum band in multispec image
+.le
+.ls pixel INDEF
+Pixel at specified wavelength (returned)
+.le
+.ls wavelength INDEF
+Wavelength in Angstroms for pixel
+.le
+.ls pixform "%8.3f"
+IRAF format for pixel output
+.le
+.ls waveform "%8.3f"
+IRAF format for wavelength output
+.le
+.ls nsum = 1
+Number of pixels to sum across dispersion
+.le
+.ls verbose no
+If yes, print the pixel value
+.le
+.ls debug = no
+If yes, print the file name, transformation, and wavelength per pixel
+.le
+
+.ih
+DESCRIPTION
+Compute the wavelength at a given pixel in a spectrum, saving the
+value as the pix2wl.wavelength parameter.  If the pixel is zero, the
+wavelength at the start of first pixel (=0.5) is saved as pix2wl.wavelength,
+and the wavelength at the end of the last pixel (=npts+0.5) is saved as
+pix2wl.wave2.  Otherwise, pix2wl.wave2=INDEF.  If verbose=yes, print the
+wavelength of the pixel (or if the pixel is zero, the wavelengths of the
+first and last pixels) using the pix2wl.waveform format.  If debug=yes,
+print spectrum image name, followed by the wavelength value using the
+pix2wl.waveform format, the pixel falue using the pix2wl.pixform format,
+and the delta wavelength per pixel across this pixel.
+.ih
+EXAMPLES
+
+1) Compute the wavelength at a given pixel for use in a CL script:
+.nf
+rvsao> pix2wl 22572.fits 3000   
+rvsao> =pix2wl.wavelength
+6435.7338761065
+rvsao>
+.fi
+
+2) Print the wavelength at a given pixel:
+.nf
+rvsao> pix2wl 22572.fits 3000 v+
+6435.734
+rvsao>
+.fi
+
+3) Print the wavelength at a given pixel more verbosely:
+.nf
+rvsao> pix2wl 22572.fits 3000 d+
+22572.fits: 3000 -> 6435.734 (0.5744/pix)
+rvsao> 
+.fi
+
+4) Compute the wavelength range of an image for use in a CL script:
+.nf
+rvsao> pix2wl 22572.fits 0
+rvsao> =pix2wl.wavelength
+4712.8929877685
+rvsao> =pix2wl.wave2
+7065.5371880127
+rvsao>
+.fi
+
+5) Print the wavelength range of an image:
+.nf
+rvsao> pix2wl 22572.fits 0 v+
+4712.893 - 7065.537
+rvsao>
+.fi
+
+6) Print the wavelength range of an image more verbosely:
+.nf
+rvsao> pix2wl 22572.fits 0 d+
+22572.fits: 4712.893-7065.537 (4096 pixels, 0.5742/pix)
+rvsao>
+.fi
+
+7) Check the inverse of the dispersion function:
+.nf
+rvsao> pix2wl 22572.fits 3000
+rvsao> wl2pix 22572.fits pix2wl.wavelength v+
+3000.000
+rvsao>
+.fi
+
+.ih
+AUTHOR
+Doug Mink, Harvard-Smithsonian Center for Astrophysics
+
+.endhelp

@@ -1,0 +1,2 @@
+int	nmspec		# Number of object multispec apertures
+char	specbands[SZ_LINE]	# List of multispec bands to read

@@ -1,0 +1,87 @@
+
+                           RVSAO
+         An IRAF package to compute radial velocities
+
+                             by
+     Doug Mink, Bill Wyatt, Guillermo Torres, Mike Kurtz
+        Harvard-Smithsonian Center for Astrophysics
+
+                        Gerry Kriss
+Center for Astrophysical Sciences, Johns Hopkins University
+
+                         John Tonry
+           Massachusetts Institute of Technology
+
+                         John Morse
+                University of North Carolina
+
+                       Stephen Levine
+                  University of Wisconsin
+
+     Here is a list of all of the SPP and Fortran routines used by
+the RVSAO package, an evolved version of Gerry Kriss's REDSHIFT package,
+merged with peak fitting routines developed at the Center for Astrophysics.
+
+In directory Xcor:
+aspart.x      compute antisymmetric noise (called by xcorfit)
+buffers.x     various buffer routines (called by xcorfit)
+correlate.x   various correlation routines (called by xcorfit)
+earlin.x      polynomial fitting (called by pkfitp, pkfitq)
+pkfitc.x      fit cos(x)/(1+x^2) to cross-correlation (called by xcorfit)
+pkfitp.x      fit parabola to cross-correlation (called by xcorfit)
+pkfitq.x      fit quartic to cross-correlation (called by xcorfit)
+pknum.x       count peaks in cross-correlation (called by xcorfit)
+pkwidth.x     find max and width of cross-correlation (called by xcorfit,pkfit)
+plotsubs.x    summary page subwindow plotting (called by xcplot)
+rebinr.x      rebin spectrum and template (called by t_xcsao)
+t_xcsao.x     main program for cross-correlation redshifts
+xcarch.x      write SAO TDC archive records (called by t_xcsao)
+xcmin.x       fit function to data (called by pkfitc)
+xcorfit.x     compute cross-correlation and fit peak (called by t_xcsao)
+xcplot.x      Plot summary page, handle cursor interaction (called by t_xcsao)
+xcrslts.x     summarize results to log file (called by t_xcsao)
+
+In directory Emvel:
+emarch.x	Write SAO TDC archive emission line record to a file
+emeplot.x	Plot spectrum and mark emission and absorption lines
+emfind.x	Find all lines within section of spectrum which meet criteria
+emfit.x		Compute radial velocity from emission line shift
+emgauss.x	Gaussian EMMIN calling program and computation subroutines
+emguess.x	Make initial velocity guess by examining spectrum
+eminit.x	Read emission and absorption line information from files
+emlfit.x	Fit gaussians to all lines found
+emmin.x		Fitting subroutine
+emplot.x	Cursor handling subroutine
+emrslts.x	Display results of emission line fits to display and/or file
+emsrch.x	Find emission lines in spectrum
+emvfit.x	Combine information from multiple emission lines for velocity
+t_emsao.x	Main emission line program EMSAO
+
+In directory Util:
+apodize.x	Apodize spectrum
+bcv.f		Compute barycentric velocity correction for spectrum
+chopper.c	Emission line chopper (SAO)
+compbcv.x	Interface to barycentric correction subroutine
+contpars.x	Subroutines to deal with ICFIT continuum removal
+emchop.x	Interface to SAO emission line chopper
+evalpoly.c	Polynomial evaluator used by chopper.c
+fourm.x		Fourier transform based on Press, et al.
+getimage.x	Read a spectrum from an IRAF file
+getsky.x	Read a sky spectrum from an IRAF file
+getspec.x	Read an object specrum from an IRAF file
+gettemp.x	Read a template spectrum from an IRAF file
+gettemps.x	Read a list of templates from IRAF files
+hershey.f	Draw characters using hershey font set
+icsubcon.x	Remove continuum and emission lines using ICFIT routines
+imgpar.x	Get parameters from an IRAF image header
+invert.x	Invert a matrix
+legendre.x	Fit and compute Legendre polynomials
+matinv.x	Invert a matrix
+plotspec.x	Plot a spectrum, includes cursor interaction
+polfit.x	Fit a polynomial to a vector
+polyfunc.c	Evaluate a polynomial
+ranges.x	Decode ranges of numbers from a string
+replot.x	Plot a vector (called by plotspec)
+smooth.x	1-2-1-smooth a vector
+subcon.x	Remove a polynomial continuum from a spectrum
+vcombine.x	Combine emission line and cross-correlation velocities

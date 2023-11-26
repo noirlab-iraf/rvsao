@@ -1,0 +1,750 @@
+RVSAO Revision Log
+
+2.8.2, May 2, 2014
+* Edit cosmic rays out of a spectrum by resetting a point at a time
+* (using the , key) or by linearly interpolating between points on 
+* either side of a cosmic ray (using the d key twice).  The edited 
+* spectrum is automatically written out if you are running qplot or 
+* are saving information to the spectrum header and leave with "q".
+XCSAO,EMSAO,PXCSAO,PEMSAO: Write back edited spectrum
+xcfit.x: Call putspec to update spectrum after editing it (2014-05-02)
+emplot.x: Fix bug which reversed red and blue limits (2013-03-15)
+emplot.x: Add , command to replace individual pixel values (2014-05-01)
+emplot.x: Add > command to write out edited spectrum (2014-05-02)
+
+2.8.1, May 25, 2012
+PXCSAO: Add maxlength parameter to set output spectrum file length in mode 11
+xcrslts.x: add parameter maxlength to allow longer filename in mode 11
+
+2.8.0, April 13, 2012
+LISTSPEC: Add velform format for velocity per pixel output
+SKYPLOT: Base on PEMSAO instead of XCSAO, like EMPLOT
+juldate.x: Do not recompute HJD if already in header
+juldate.x: Check for BJD as well as HJD
+vcombine.x: Do not add constant dispersion error of 15 km/sec any more
+xcfile.x: Only include file name in xc file if given full pathname
+xcfile.x: Drop ".ms.fits" and ".fits" from object and template filenames
+xcfile.x: Add ".xcor" file extension to output filename
+xcfile.x: Fix bug by redimensioning title from SZ_LINE to SZ_PATHNAME
+Add new shell script rvsaopar to set RVSAO task parameters from a dpar file
+Add new shell script pxcsao to execute PXCSAO
+
+2.7.9, August 11, 2010
+PEMSAO: Write median (MEDPIX) and mean (MEANPIX) pixel shift to image header
+PEMSAO: Do not write back to parameter file if save_vel=yes
+PEMSAO: Skip apertures where no lines are found for means and medians
+PEMSAO and PXCAO: Set FITS extension with specext keyword
+PXCSAO and XCSAO: initialize all pointers to NULL; free only if not NULL
+xcfit.x: Return properly if there is an error reading a spectrum
+getspec.x: Return error if spectrum has no non-zero pixels
+getimage.x:  If stacked spectra and CD2_2 is not set, set it to 1
+getimage.x:  Always add extension to file name, even if it is zero
+
+2.7.8, November 20, 2009
+XCSAO, PXCSAO, EMSAO, PEMSAO: Zoom and line identification changes in emplot.x
+LISTSPEC,PIX2WL,WL2PIX: Increase image string size to SZ_PATHNAME(511) from SZ_FNAME(255)
+emplot.x: Fix zoom at left and right edges of a displayed spectrum.
+          Replot immediately with new velocity if line selected
+          Mark VELOCITY as being used if it is guessed from a line
+          Change to correlation velocity automatically if switching templates
+getimage.x: Increase image string size to SZ_PATHNAME(511) from SZ_FNAME(255)
+
+2.7.7, July 28, 2009
+XCSAO: If DIVCONT is T in object spectrum, divide it by its continuum and
+       subtract 1.0 instead of subtracting the continuum; do the same with
+       all templates, if they have no SUBCONT flag.
+XCSAP,PXCSAO: Increase maximum number of point sin peak fir from 512 to 1024 for TRES
+XCSAO,EMSAO: If contspec.order is zero, do not remove continuum
+XCSAO,EMSAO,SUMSPEC: If dividing continuum, normalize by mean of continuum
+       to get the true variation in count rates.
+EQWIDTH: Compute sigma according to John Huchra's new formula
+
+2.7.6, June 15, 2009
+WLRANGE: New task to return the overlapping wavelength range for a list of spectra
+
+2.7.5, June 10, 2009
+EQWIDTH: Major changes to make it more robust and handle rest wavelengths right
+EMSAO, PEMSAO: Fix multiple aperture plotting so it doesn't crash or print blank lines
+PEMSAO: Compute lambda/pix by offset from line center to avoid dividing by
+        zero if line is exactly at rest wavelength (as for a sky or
+        calibration lamp line)
+SUMSPEC: Fix bugs so that rebinned wavelength range can be computed from
+         overlap
+emrslts.x: Return immediately if no log file is set
+emplot.x: Get number of apertures from im structure, not smw
+emlines.dat: Add Lyman Beta and Gamma; move Lyamn Alpha from 1215.7 to 1215.67
+             Fix name of 1240.0 from LyA to NV
+
+2.7.4, April 24, 2009
+BCFCORR: Add SUBGRAV parameter to make solar gravitational redshift subtraction
+         from twilight sky spectra optional
+LISTSPEC: Allow multiple apertures and write them to separate files
+EQWIDTH: Fix error computation for equivalent widths and indices
+SUMSPEC: Handle spectra with PIXEL WCS correctly
+getimage.x: Set RA, DEC, ST, HA to 0:00 if not in header [for shdr_open()]
+juldate.x: Add MJD as possible JD header keyword; return hjd = jd if
+           there is no pointing direction in the image header
+
+2.7.3, March 31, 2009
+Add new shell scripts in Shell/ to run most RVSAO tasks on the Unix/Linux
+command line.
+
+2.7.2, March 13, 2009
+XCSAO: Add option to shift orders when cross-correlating echelle spectra
+
+2.7.1, February 20, 2009
+EMSAO,XCSAO: Assume RA is in degrees if decimal keyword value, not hours
+
+2.7.0, January 30, 2009
+SUMSPEC: Fix bug which put back heliocentric velocity correction when shifting
+         to a specific velocity and delete IRAF WCS keywords if one spectrum
+         is being rebinned.
+EQWIDTH: Fix error of index so that it is at least closer to correct.
+         Fix bug so that a lack of a VELOCITY or BCV keyword does not crash
+         the program.  Clean up exposure scaling.
+
+2.6.9, December 9, 2008
+EQWIDTH: Correctly compute Index and Index Error; Set to 0.0 if no continuum
+EMSAO,EMPLOT: Plot line name and wavelength if only labeling emission lines
+Add emlineshe2.dat He2 line list
+
+2.6.8, October 7, 2008
+EMSAO,EMPLOT: Add ) and ( commands to move through orders or apertures
+
+2.6.7, September 16, 2008
+RVRELEARN: New task to relearn all of the parameters from all of the tasks
+           in RVSAO.  Old parameters keep their values; new parameters will
+           be assigned default values.
+SUMSPEC: Keep pointing direction if numbers of input and output apertures are 
+         the same.
+
+2.6.6, September 11, 2008
+PEMSAO: Set median and quartile velocity shift, plus mean and median pixel
+        and wavelength shift parameters for multiple aperture computations.
+PIX2WL: New task to return wavelength at a specified pixel in a spectrum or if
+        the pixel value is zero, the range in wavelength covered by the image.
+WL2PIX: New task to return the pixel of a wavelength in a spectrum specified
+        in Angstroms.
+emplot.c: Add a decimal place to wavelengths and print FP pixel in "w" (2008-09-11)
+
+2.6.5 July 8, 2008
+EQWIDTH: Add error computation and 3 additional reporting modes
+EQWIDTH: Add bandfilt parameter to indicate whether band filters are present
+EQWIDTH: Add bandcont parameter to indicate whether continuum names are present
+EQWIDTH: Add banddir to specify directory for band file
+EMPLOT: New task to plot spectra and label lines without fitting emission lines
+SKYPLOT: New task to plot sky spectra and label emission lines
+XCPLOT: New task to plot spectra without cross-correlating (a simpler splot)
+XCSAO,PXCSAO: Fix transform filtering so that zero-padded spectra
+        really are unfiltered.  The toplo, topnrun, and nrun numbers are
+        now doubled when zeropad=yes, as they should have been all along.
+XCSAO,PXCSAO,SUMSPEC: Fix old bug with log wavelength SUMS rebinning.
+        Bad velocities were possible if using log-wavelength templates which
+        were not created using SUMS rebinning.
+XCSAO,PXCSAO,EMSAO,PEMSAO: Fix results printing subroutines so they
+        have fewer string constants so they will compile on Solaris IRAF
+
+getimage.x: Fix recent bug which caused problems if file name extensions assumed
+rebin.x: Compute edges of pixels for SUMS log wavelength rebinning in rebinl()
+
+CL scripts have been moved into the Scripts/ subdirectory.
+Shell scripts have been moved into the Shell/ subdirectory and suffixes dropped.
+
+2.6.4 May 9, 2008
+XCSAO, EMSAO, SUMSPEC: if bad line file line name starts with "pix",
+        interpolate between specified pixels rather than specified wavelengths.
+XCSAO,PXCSAO: If SUBCONT=F in object header, continuum is not removed.
+XCSAO,PXCSAO: If filling between pixel limits, fill template(s), too.
+        Ignore world argument in getimage.x; resetting header parameters
+        confuses shdr_open() when there is a nonlinear IRAF spectrum WCS.
+EMSAO, XCSAO: increase maximum number of emission lines to 500 for
+        multi-order ThAr spectra.
+EMSAO,PEMSAO: If wavelength limit parameters are negative go in the absolute
+        value of that many Angstroms from the appropriate end of the spectrum.
+EMSAO,PEMSAO: Increase maximum number of combination emisson line sets
+        from 5 to 20
+SUMSPEC: Add missing argument in addspec() call to filllist()
+PEMSAO: Save mean velocity to meanvel parameter and error to meanerr parameter
+PXCSAO: Save as parameters median and quartile velocities for echelle
+LISTSPEC: New task to print spectra
+
+2.6.3 February 11, 2008
+XCSAO,PXCSAO: Increase maximum number of templates to 3000
+XCSAO: Add report mode 18 for TRES results
+
+2.6.2 January 14, 2008
+SUMSPEC: Remove barycentric velocity correction when summing to velocity
+SUMSPEC: Fix bug so spectra can be added again
+PXCSAO: Save mean velocity shift of apertures (=orders) if echelle
+
+2.6.1 October 15, 2007
+SUMSPEC: Fix boolean check in writetemp.x so it compiles on MacIntel
+XCSAO: Fix boolean check in xcplot.x so it compiles on MacIntel
+
+2.6.0 September 3, 2007
+PXCSAO: New task which writes best template, velocity, error, and r-value
+        to its parameter file to make it easier to use in CL scripts.
+PEMSAO: New task which writes number of lines fit, velocity, error, height,
+        width, and equivalent width of the first emission line in its list
+        to make it easier to use in CL scripts.
+XCSAO,PXCSAO: Drop all cache pointers from xcfit.x and rvsao.com.
+        Add xplt.com containing pointers for plotting buffers in xcplot.x and
+        xcorplot.x.  They are allocated to the maximum size needed and freed
+        at the end of t_xcsao.x and t_pxcsao.x.
+QPLOT: Fix dropped line in xcfit.x so this works again
+BCVCORR: Dropped commas from prompt for parameter savejd in bcvcorr.par
+
+2.5.9 June 21, 2007
+XCSAO: Allocate all transform vectors, so number of bins is unlimited
+BCVCORR: Add printmode, returned bcv and hcv parameters, and savejd to
+separate saving of date and velocity (savebcv) information in image header.
+
+2.5.8 June 14, 2007
+getimage.x: If APIDi present, read RA and DEC as strings, not numbers
+
+2.5.7 April 6, 2007
+XCSAO: Print last 27 characters of template in report mode 17 (-.fits)
+XCSAO: Print object name as "filename_aperture", not "filename [aperture]"
+EMSAO: Fix bug which caused line finding to fail if wavelength increased left to right
+SUMSPEC: Fix exposure time addition bug
+
+2.5.6 February 14, 2007
+SUMSPEC: Preserve APNUMi keywords when linearizing multi-aperture multispec image
+
+2.5.5 February 1, 2007
+EMSAO and XCSAO: Plot all emission lines if any, not just those found
+XCSAO: Do not modify data structure when dropping leading and trailing zeroes
+XCSAO: Fix bug which caused wavelength range to shrink spontaneously
+QPLOT,XCSAO,EMSAO: Always label lines after identifying one
+QPLOT,XCSAO,EMSAO:  Add 'l' option to 's' option to set velocity from
+identified line with error of 300 km/sec to avoid having to type in the numbers
+QPLOT,XCSAO: Re-cross-correlate using velocity of identified line as guess on f
+
+2.5.4 October 24, 2006
+XCSAO: Increase maximum number of templates from 256 to 512 (rvsao.h)
+
+2.5.3 September 27, 2006
+XCSAO: Fix normalization bug to now divide by mean *before* adding floor
+
+2.5.2 August 17, 2006
+XCSAO: Do not use pixels at either end of spectrum with values of zero
+
+2.5.1 July 13, 2006
+XCSAO, EMSAO: Do not read per-aperture info for apertures > 999
+
+2.5.0 June 1, 2006
+XCSAO: Add report mode 17 for Hectochelle
+getimage.x: Extract name, position, beam, and fiber from APID keywords
+
+2.4.9 May 19, 2006
+XCSAO: rename rcomp to rcompx to fix Fedora Core 5 problem
+EMSAO: clone rcomp to rcompe to fix Fedora Core 5 problem
+SUMSPEC: keep all-zero spectra
+icsubcon.x:  Return fit and spectrum as all zeroes if spectrum is all zeroes
+xchead.x: Fix multi-line header COMMENT concerning templates so it works
+
+2.4.8 March 9, 2006
+*BCVCORR:  Add new parameter specsun to use direction of sun instead of
+       pointing direction if set (for twilight sky spectra) *relearn bcvcorr*
+       Add parameter to specify when time is during observation
+       Decode UT from FITS DATE-OBS keyword value if it is there
+       Allow JD- and MJD-containing keywords as time
+XCSAO: Free two wavelength structures which were allocated for every spectrum
+       This caused memory overflows when processing many spectra in a loop
+XCSAO,EMSAO: Add ZERR z error to header
+XCSAO,EMSAO: Fix rcomp() declaration error in xcplot.c and emplot.c
+EMSAO: Make sure all displays of z or 1+z are labelled correctly
+SUMSPEC: Always set BCV to 0.0; it is always corrected for.
+
+2.4.7 December 9, 2005
+EQWIDTH: Fix bug when computing flux with fit continuum
+XCSAO,EMSAO:  Force renormalization if -1 < spectrum < 1, not if max < 1
+getimage.x: Do not append aperture to name if =0
+
+2.4.6 August 22, 2005
+XCSAO,EMSAO: Print ZXC, ZEM, and Z in header
+
+2.4.5 July 28, 2005
+EQWIDTH: Print multiple output streams; print zeroes if no flux or offscale.
+
+2.4.4 July 14, 2005
+EMSAO: Fix two erroneous calls to mfree() which worked OK in Solaris, not Linux
+
+2.4.3 May 25, 2005
+EMSAO: Add mode 11 to print line shifts in pixels
+EMSAO: Print 3 decimal places in modes 3, 6, 9, 11
+EMSAO,XCSAO,SUMSPEC: Add pixshift argument to rebin() and rebinl() for
+calibration adjustments and compute needed wavelength vectors
+rebin.x: Add pixshift argument to adjust calibration in rebin() and rebinl()
+wlcon.x: Add wcs_pixshift() and wcs_getshift() and pixel shift in conversions
+
+2.4.2 March 25, 2005
+SUMSPEC: Add constant graph scaling
+
+2.4.1 March 16, 2005
+BCVCORR: Fix bug so decimal RA's are correctly converted to hours
+compbcv.c: Fix bug so decimal RA's are correctly converted to hours
+
+This is an *important* fix for anyone who cares about radial velocity
+accuracy to better than 100 km/sec and has RA and DEC in decimal
+degrees in their spectrum headers as the magnitude of the fix can be
+over 40 km/sec.
+
+2.4.0 February 23, 2005
+EQWIDTH: Debug and add net flux and various possible ways to scale it
+BCVCORR: Fix bug so keyword values for position and date can be used
+
+2.3.9 October 19, 2004
+EMSAO: Fix equivalent width computation so units match
+
+2.3.8 September 28, 2004
+EQWIDTH: Add 3 parameters--atrest, bypix, byexp--to output sky fluxes
+at assumed rest wavelengths, normalized by exposure time and the number
+of rows from which the signale was summed to be subtracted from an
+extended object. (but program is still not tested)
+
+2.3.7 August 25, 2004
+SUMSPEC: use cont_remove instead of contout to remove continuum from input
+spectra, fixing a bug
+Fix lots of type mismatches using gcc-based compilers on Redhat Linux version.
+
+2.3.6 July 20, 2004
+XCSAO,EMSAO,QPLOT: If velocity is changed using 's', update spectrum header
+
+2.3.5 June 16, 2004
+XCSAO: + at start of emission line filename always labels emission lines
+SUMSPEC: Add option fit to return fit to continuum rather than removing it
+SUMSPEC: Add option to use a list of output files
+
+2.3.4 January 16, 2004
+Print nonspectral dispersion message only in debug mode in getimage()
+
+2.3.3 August 1, 2003
+Add ability to read first extension of multi-extension FITS file.
+Eventually there will be new parameters, specext and tempext to
+read ranges or lists of file extensions, but not yet.
+
+2.3.2 June 2, 2003
+Add smoothing of output spectrum to SUMSPEC.
+Clean up BCVCORR so it actually handles all of its input options correctly. 
+
+2.3.1 December 2, 2002
+Fix bug in EMSAO renormalization check and boost renormalized spectra
+so all pixels are positive in EMSAO.  Add min, max pixel in XCSAO if debug.
+
+2.3.0 October 8, 2002
+Add EQWIDTH task, based on IRAF noao.onedspec.sbands, to do photometry
+on redshifted data at wavelengths specified in the rest frame.
+
+2.2.9 September 17, 2002
+Allocate large vectors only once
+
+2.2.8 August 17, 2002
+Add report mode 16 to XCSAO for per template wavelengths
+
+2.2.7 May 29, 2002
+Add per spectrum velocity shifts to SUMSPEC
+
+2.2.6 March 29, 2002
+Add per spectrum wavelength (or pixel) limits to SUMSPEC
+Accept UTSTART as well as UTOPEN for observation beginning time
+
+2.2.5 February 5, 2002
+Ignore pixels with values less than MIN_PIXEL_VALUE at ends of spectra
+Replace pixels with values less than MIN_PIXEL_VALUE elsewhere in spectra
+In compbcv.x, allow use of new keywords OBS-LONG, OBS-LAT, and OBS-ELEV
+
+2.2.4 September 19, 2001
+Add 10th result reporting mode to EMSAO with line info only.
+Drop SPECDIR from file name in headings
+Fix units check in getimage()
+
+2.2.3 July 31, 2001
+Change cross-correlation velocity information in header when template
+changed interactively in EMSAO and XCSAO using the 't' cursor command.
+Fix pixel cross-correlation so it works.
+Add option to ignore zeroed pixels in continuum fit and removal
+Add option in SUMSPEC to remove continuum after rebinning (contout)
+Add option in SUMSPEC to write each input file to a separate output file
+ (composite file name is "")
+Separate LINESPEC and SUMSPEC source directories from Makespec into
+Linespec and Sumspec, with shared tasks into Util
+
+2.2.2 April 3, 2001
+Fix EMSAO and plotspec.x in several places to deal with right-to-left spectra.
+Plot text info after spectrum in EMSAO so it all displays on xgterm.
+Match arguments in SUMSPEC so renormalization works.
+
+2.2.1 February 9, 2001
+Fix bug in EMSAO so emission line structures are always initialized correctly
+Fix bug in XCSAO to deal with right-to-left dispersion
+Print aperture separately in XCSAO mode 12 report and EMSAO one-line reports
+
+2.2.0 September 13, 2000
+Add options to XCSAO to cross-correlate in wavelength and pixel space by
+  changing the "correlate" parameter into a string.
+Allow pixel or wavelength limits to be specified for templates in XCSAO so
+ several pieces of a single template spectrum, such as emission lines, may
+ be correlated against an object spectrum.
+Add two new reporting modes to EMSAO, 8 to print wavelength information about
+ fit emission lines on one line and 9 to print only wavelength shifts on one
+ line.
+
+2.1.27 August 10, 2000
+Fix bug in EMSAO which caused problems with sorting during line search
+
+2.1.26 August 2, 2000
+Fix echelle mode spectrum number tracking.
+Print file name and aperture as title for object and template graphs
+
+2.1.25 July 21, 2000
+In SUMSPEC, shift to first spectrum's barycentric velocity correction
+if svel_corr is not none.
+
+2.1.24 July 6, 2000
+In LINESPEC and SUMSPEC, specify wavelength dispersion by 3 of start and
+ending wavelength, wavelength/pixel, and number of pixels
+Automatically renormalize if maximum spectrum value is less than one.
+Clean up debugging code for renormalized cross-correlations.
+
+2.1.23 June 8, 2000
+Add equivalent width error to new report modes 0 and 7 in EMSAO
+
+2.1.22 April 28, 2000
+Change years from 0-120, not just 0-99, to 1900+year.  Some instrumentation
+write 100 instead of 00 for 2000 in the old FITS format.
+
+2.1.21 March 6, 2000
+Fix bug in LINESPEC which caused wavelength to be multiplied 2+Z instead of 1+Z
+if redshift was entered as Z instead of velocity.
+
+2.1.20 January 25, 2000
+Read SUBCONT flag in spectrum header to find out whether to subtract
+continuum.  If T, remove continuum; if F, do not.  If it is not found,
+remove continuum.
+
+2.1.19 December 8, 1999
+Free spectrum WCS when freeing image stops runaway memory use when looping
+through large numbers of spectra in XCSAO, EMSAO, or SUMSPEC.
+Fix bug in BCVCORR which failed to get image observatory name correctly.
+
+2.1.18 September 24, 1999
+Fix qplot mode of XCSAO to update best template information, including R
+when a different best template is selected.
+
+2.1b17 September 15, 1999
+Fix tab table output in XCSAO (report_mode= -8, -10, -11, -12, or -14)
+
+2.1b16 September 7, 1999
+Write CD as well as CDELT in SUMSPEC.  Add gio.h dependencies in mkpkg.
+
+2.1b15 August 24, 1999
+Add vel_plot keyword to XCSAO and velplot keyword to QPLOT, so combination
+velocity-redshifted lines can be displayed by default in dispmode > 0.
+When continuum is divided out in SUMSPEC, the new continuum is 1.  A new
+option for cont_remove, "divzero", divides by the continuum and subtracts
+1 so the spectrum can be cross-correlated.  This is what "divide" did
+in version 2.0 and all previous 2.1 betas, but it is not what you want
+if you plan to compute equivalent widths.  Read templates from header
+if NTEMP is set as well as if CZPARAMS is set.
+ 
+2.1b14 July 29, 1999
+Add tab table output option to XCSAO.  In SUMSPEC, copy entire header if
+single file in and out, even if there are multiple spectra from that file.
+In SUMSPEC, normalize by dividing out the mean times an input constant.
+Add display with continuum subtracted to XCSAO.
+
+2.1b13 July 23, 1999
+Add tab table output option to EMSAO.  Replace blank fields with underscore.
+
+2.1b12 July 16, 1999
+Fix bug so QPLOT can update spectrum headers in both XCSAO and EMSAO.
+If save_vel=yes and correlate or linefit =no the programs run in QPLOT
+mode, where nothing will be wriitten unless new fits or correlations are done.
+
+2.1b11 June 30, 1999
+Fix bug in XCSAO which caused template heliocentric velocity correction and
+header velocity to be ignored.  In debug mode, note which needed parameters
+are missing when the heliocentric velocity correction cannot be computed.
+
+2.1b10 June 25, 1999
+Add display modes 4 and 5 in EMSAO and XCSAO to display spectrum with
+continuum subtracted.  In EMSAO, add cursor commands to interactively
+modify some continuum fit parameters:  C sets continuum fit parameters,
+S sets the VELOCITY keyword.
+
+2.1b9 June 15, 1999
+Add option in sumspec to zero or fill parts of spectra known to be bad.
+If they are zeroed, continuum is fit to an interpolated spectrum, and the
+bad pixels are zeroed after the continuum is removed.
+Fix fatal bug in linespec
+
+2.1b8 May 21, 1999
+Fix minor bug in filllist and change UT from end to start of observation
+in juldate.x, adding UTEND to UTMID and UTOPEN as possibilities for computing
+the Julian Date in conjunction with EXPOSURE or EXPTIME if the Julian Date
+is not already ain the header as GJDN or MJD-OBS.
+Try DATE keyword if DATE-OBS is not present
+
+2.1b7 May 11, 1999
+Fix bugs so that SUMSPEC can stack rebinned spectra
+
+2.1b5 March 30, 1999
+
+Search IRAF database for observatory position using OBSERVAT header keyword
+if observatory position is not in the spectrum header, for computation of
+the geocentric part of the barycentric velocity correction.
+
+2.1b4 March 19, 1999
+
+Fix logic in sumspec so multiple spectra are summed correctly.
+
+2.1b3 March 18, 1999
+
+Multiply by 1000 when renormalizing so that continuum is not less than 1
+so S/N for line search in EMSAO and continuum removal in XCSAO and SUMSPEC
+is a usable number.
+
+2.1b2 March 12, 1999
+
+Fix bug so that no error message is returned if an object spectrum file cannot
+be opened READ_WRITE if it can be opened READ_ONLY and no writing is to be done.
+
+2.1b1 December 30, 1998
+
+Log normalization factor in SUMSPEC for first spectrum.  Fix bug in
+XCSAO to properly deal with template spectrum lists with pathnames.
+
+2.0 July 31, 1998
+
+Add option to toggle header off in dispmode 3 summary display to
+create figures with a line-labelled spectrum.
+
+2.0b17 June 12, 1998
+
+Limit analysis to pixels within limits specified by spectral WCS in header
+
+2.0b16 May 22, 1998
+
+2.0b15 May 15, 1998
+
+Allow INDEF in minvel and maxvel.  Deal better with bad correlations.
+
+2.0b14 April 22, 1998
+
+Fix minor data type clashes.  Recode code which reads velocities from headers.
+This version is probably the final beta before RVSAO 2.0, which is described
+in a paper which has been accepted for publication in the August 1998 PASP.
+
+2.0b12 April 7, 1998
+
+Fix SUMSPEC bug which crashed the program when automatically finding
+the wavelength overlap region.
+
+2.0b11 March 4, 1998
+
+Fix BCV calculation when no image is present
+
+2.0b10 February 23, 1998
+
+Fixed handling of velocities in object spectrum files.
+Fixed handling of velocities in template spectrum files.
+Fixed handling of barycentric velocity correction from files.
+Allow up to 16384 points in correlations.
+Set template velocity to 0.0 km/sec if there is no VELOCITY or APVELn
+keyword in the header.
+
+2.0b January 9, 1998
+
+Precision problems have been fixed in the barycentric velocity correction.
+The BCVCORR task has been added to deal with any observatory parameters
+which might throw off the inline computation of the barycentric velocity
+correction.
+ISO date specification (yyyy-mm-dd) is now supported in header date keywords
+as well as 1900-1999 standard FITS (dd/mm/yy).
+The new SUMSPEC task creates spectra from multiple spectra taken at
+different times.
+The new LINESPEC task creates artificial spectra from lists of emission
+and/or absorption lines.
+The unsupported Fourier quotient task FQUOT has been dropped.
+The option to divide by the continuum in XCSAO instead of subtracting it,
+which is set by a template flag, DIVCONT, has been fixed. 
+There are several new parameters in EMSAO:  MINCONT to determine whether
+area or equivalent width is computed, LWMIN and LWMAX for the minimum and
+maximum variation from the mean line width to be accepted, and LSMIN for
+the minimum ratio of the equivalent width (or area) to its error for a
+line to be accepted.
+All intermediate plots, except those produced by IRAF's interactive curve
+fitting routines during continuum fitting, have an added cursor command, h,
+to eliminate headings and produce clean graphs for publication.
+The parameters FIXBAD and BADLINES have been added to EMSAO, SUMSPEC, and
+XCSAO to remove specified regions of a spectrum before processing.  A line
+list is provided to remove the regions around night sky emission lines.
+The parameters SPECBAND and TEMPBAND have been added to XCSAO, and SPECBAND
+and SKYBAND to EMSAO, to make use of multiple bands in multispec data possible.
+Because of all of these new parameters, users should run RELEARN on any
+tasks they have used in the past.
+
+***************************************************************************
+
+1.9 December 5, 1995
+
+Bugs fixed, but not a major release.
+
+***************************************************************************
+
+1.8 September 28, 1995
+
+The major change is the ability to use either EMSAO and XCSAO to display
+previous results saved in the image header.  XCSAO has two final displays,
+the old one with both spectrum and correlation peak and complete per-
+template correlation data, and the EMSAO display with emission and
+absorption lines labelled.  A quality flag can be set in the header from
+either final display in either XCSAO or EMSAO.  If no correlation is
+done (correlation=no), only the final velocity information is rewritten
+by XCSAO.  If no new line fit is done (linefit=no), EMSAO writes out
+only the final velocity information, not overwriting the per-line results.
+A new task, QPLOT, was added to check redshift results after batch runs.
+There were also many minor bug fixes.
+
+***************************************************************************
+
+1.7 June 1, 1995 
+
+Add continuum removal, explicit emission and rejection limits, and
+zero-padding as optional template header-parameter-directed operations.
+The boolean zero_pad parameter was changed to the character zeropad to
+allow zero-padding to be optionally controlled by the template spectrum
+header parameter ZEROPAD. czinit, which was a yes or no boolean in
+previous versions of RVSAO has turned into the character string vel_init
+in RVSAO 1.7 to allow an initial velocity to be set from the czguess
+parameter or from a previously-obtained correlation, emission, or combined
+velocity in the header.  Parameters s_abs_reject, s_em_reject, t_abs_reject,
+and t_em_reject have been moved to XCSAO from CONTPARS as they are used
+to prepare spectra only for cross-correlation.
+
+***************************************************************************
+
+1.6 February 27, 1995 
+
+Optionally display the same summary in XCSAO as EMSAO and allow template-
+directed high-pass filtering in XCSAO so that narrow line templates, such
+as those containing emission lines can be used.  To enable this option,
+square-root cosine-bell filtering is now done to the object and template
+spectrum transforms rather than cosine-bell filtering the correlation.
+
+***************************************************************************
+
+1.5 September 9, 1994 
+
+This version writes more complete results from EMSAO and XCSAO to the
+image header.  EMSAO gets larger emission line names and a parameter to
+specify the dispersion error, as well as a new summary page. XCSAO adds
+parameters to allow emission line chopping in XCSAO to be controlled by
+image header parameters, allowing emission line templates to be used, and
+adds optional zero-padding of transforms before cross-correlation to improve
+errors. 
+
+***************************************************************************
+
+1.4 June 23, 1994 
+
+Fixing many small bugs, this version was never released ouside of SAO. 
+
+***************************************************************************
+
+1.3 April 12, 1994
+
+Improve handling of missing or unwriteable files, add a cursor option to
+set peak search width in XCSAO, and improve cursor line selection in EMSAO.
+Add and improve cursor commands in EMSAO and add spectrum editing in XCSAO.
+Greatly improve handling of multispec files as both object and template
+spectra.  Add ZVEL CL script to run both XCSAO and EMSAO on a file or list
+of files.  Fix EMSAO line-finding bug.
+
+***************************************************************************
+
+1.2 December 3, 1993
+Fix some bugs involving multispec header information and adds the multspec
+spectrum number to all logs and graphs.
+
+***************************************************************************
+
+1.1 July 1, 1993
+Implement the IRAF MWCS spectrum file format, so multispec files can be
+processed.
+
+***************************************************************************
+
+1.02 February 16, 1993
+Clean up the lesser-used XCSAO reporting modes.
+
+***************************************************************************
+
+1.01 February 10, 1993
+Add an improved help file for EMSAO, including some hints on using cursor
+mode and fix some bugs in cursor line identification.  The heliocentric
+velocity correction is now correctly applied.  (Barycentric corrections from
+the image file header value have always worked.)
+
+***************************************************************************
+
+1.00 January 13, 1993
+Clean up a few bugs and change the emlines.dat file to include an additional
+entry for each line containing the half-width in angstroms of the region to
+included in the fit for that line.  Some emission lines are not good
+Gaussians, so a narrow fit near the peak gets a better center than an attempt
+to fit the entire line to a Gaussian profile.  FQUOT no longer crashes.
+
+***************************************************************************
+
+0.99 August 12, 1992
+Clean up multispec handling and fix some bugs in the cursor interaction
+section of EMSAO, especially with regards to line ID.  A variety of bugs
+have been fixed in the way velocity results are saved and combined
+velocities computed for archive files and image headers.
+
+***************************************************************************
+
+0.98
+Improve multispec capabilities, adding three new parameters to XCSAO:
+	specnum, a list of spectra in a multispec file to be correlated,
+	tempnum, a list of spectra in a multispec file to be used as templates
+	echelle, which is set to "yes" if the spectrum and template are both
+	         multispec echelle files--the same list, specnum, is used.
+The maxshift and minshift parameters are now in km/sec, instead of pixels
+in Fourier space, which should make appropriate values more obvious.
+The following parameters have been added to EMSAO:
+	specnum, a list of spectra to process from a multispec file,
+	tempnum, a list of corresponding sky spectra in the multispec file,
+	emlines, a file containing a list of emission lines,
+	emcombine, a file containing a list of combined emission lines,
+	npfit, the number of pixels to fit around each line peak,
+	npcont, the number of pixels to fit around each line continuum,
+	wspan, the wavelength to search around each redshifted line center,
+	ablines, a file containing a list of absorption lines to label,
+	emsearch, a file containing a list of the strongest emission lines.
+Local modifications of the line lists is now possible without changing the
+program, and changes to the parameters of the line fits allow use of EMSAO
+on a wide range of types of spectra.
+
+***************************************************************************
+
+0.97
+Add multispec reading capability.
+
+***************************************************************************
+
+0.96
+Add correct parameters for FQUOT and fix a bug in pkwidth which would
+cause XCSAO to bomb if a number of points rather than a peak fraction
+to fit was specified.
+
+***************************************************************************
+
+0.95
+Properly remove emission lines if IRAF continuum fitting is chosen and
+correct several argument mismatches in subroutine calls.  EMSAO no longer
+gives emission line centers that are one pixel off.
+
+***************************************************************************

@@ -1,0 +1,33 @@
+.help relearn Feb93 rvsao
+.ih
+NAME
+relearn -- Update task parameter file using values from old parameter file
+.ih
+USAGE
+relearn task
+.ih
+PARAMETERS
+.ls task = ""
+Name of task of which parameter file is to be updated
+.le
+ 
+.ih
+DESCRIPTION
+\fIrelearn\fR saves the current parameter values for the named task,
+unlearns it, and reassigns the old parameter values to the new file.
+Instead of typing
+.br
+	dpar task >temp.file
+.br
+	unlearn task
+.br
+	cl <temp.file
+.br
+you type
+.br
+	relearn task
+.ih
+BUGS
+none
+ 
+.endhelp

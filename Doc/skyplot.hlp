@@ -1,0 +1,90 @@
+.help skyplot July2008 rvsao
+.ih
+NAME
+skyplot -- Use XCSAO to plot sky emission over a sky spectrum
+.ih
+USAGE
+skyplot spectra
+.ih
+PARAMETERS
+
+.ls spectra = ""
+List of file names of spectra to plot
+.le
+.ls specband = 3
+Spectrum band to plot. The sky is in band 3 in IRAF multispec files
+from the FAST and Hectospec spectrographs.
+.le
+.ls specnum = ""
+Spectrum aperture range to plot
+.le
+.ls specdir = ""
+Directory for spectrum to plot
+.le
+.ls skylines = "mmtsky.dat"
+File of emission lines to label.  Other good files in the same
+directory include mhosky1.dat and mhoskyall.dat, which have more
+emission lines, and skylines.dat, which has fewer.
+.le
+.ls linedir = "rvsao$lib/"
+Directory for lines to label
+.le
+ 
+.ih
+DESCRIPTION
+SKYPLOT runs EMSAO and displays the spectrum with night sky emission
+lines labelled.  Type "q" to go on to the next spectrum in a list.
+Type "?" or space to get a menu of cursor commands.
+
+.ih
+CURSOR COMMANDS
+.nf
+ a  Set redshift guess from absorption line
+ b  Set blue limit of line search
+ c  Change continuum parameters
+ d  Delete data between 1st and 2nd positions
+ e  Set redshift guess from emission line
+ f  Refit redshift
+ g  Number of times to smooth plotted spectrum
+ h  Toggle print of heading with filename and redshift
+ i  Change initial velocity for search
+ j  Conditional velocity
+ k  Plot continuum-subtracted spectrum
+ l  Line search parameters
+ m  Number of times to smooth fit spectrum
+ n  Disapprove velocity
+ o  Turn line labelling on and off
+ p  Replot current graph
+ q  Leave plot
+ r  Set red limit of line search
+ s  Set VELOCITY to a specific value
+ t  Switch template for correlation velocity
+ u  Unzoom
+ v  Plot at e>mission x>correlation c>ombined velocity
+ w  Show rest and observed wavelengths
+ x  Plot correlation if available or exit
+ y  Approve velocity
+ z  Zoom between 1st and 2nd positions
+ .  Cancel delete or zoom
+ /  Toggle plot between full screen and lines
+ +  Add emission line to fit
+ -  Subtract emission line from fit
+ (  Plot previous aperture or order
+ >  Plot next aperture or order
+ @  Make hard copy of screen
+ ?  Display this menu
+.fi
+
+.ih
+EXAMPLES
+To check the skylines in a spectrum,
+
+        cl> skyplot galaxy.ms.fits
+
+To check sky spectra for a whole night's worth of spectra:
+
+        cl> skyplot @nite1.ls
+
+.ih
+BUGS
+.endhelp

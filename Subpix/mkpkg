@@ -1,0 +1,11 @@
+# Make RVSAO library pixel shift task and subroutines
+ 
+$checkout librv.a ../bin
+$update	librv.a
+$checkin librv.a ../bin
+$exit
+
+librv.a:
+	t_pixshift.x	<imhdr.h> <smw.h> <fset.h> rvsao.h xcv.h rvsao.com emv.h emv.com results.com xcor.com xcorf.com
+	pixshift.x	<imhdr.h> <smw.h> <fset.h> rvsao.h xcv.h rvsao.com results.com xcor.com
+	;

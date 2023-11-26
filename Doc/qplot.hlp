@@ -1,0 +1,52 @@
+.help qplot Sep95 rvsao
+.ih
+NAME
+qplot -- Use EMSAO to plot emission and absorption lines already found
+in a spectrum file or list of spectra
+.ih
+USAGE
+qplot spectra
+.ih
+PARAMETERS
+
+.ls spectra = ""
+List of file names of spectra to analyze. @filename indicates list should
+come from file filename. As of version 1.3, apertures of multispec
+spectrum files can be entered as numbers, lists, or ranges enclosed in
+brackets after each file name in the list or file.  This parameter is
+directly passed to the task chosen below.
+.le
+.ls qtask = "xcsao"
+Task to run (xcsao or emsao)"}
+.le
+.ls velplot = "combination"
+Velocity to plot (combination or emission or correlation
+.le
+ 
+.ih
+DESCRIPTION
+QPLOT runs either XCSAO without correlating or EMSAO with finding new
+lines, then displays the spectrum with lines labelled and
+previously-obtained results.  These results should have been written
+to the image headers using save_vel=yes when XCSAO and EMSAO were run.
+The cursor mode is turned on, so that initial conditions can be changed
+(such as a new redshift guess or deleted cosmic ray) and the program
+(XCSAO or EMSAO) can be rerun.  The main reason for using QPLOT is to
+set a quality flag in the spectrum image header.  If the task is not
+rerun, only the summary information is rewritten.  If the spectrum is
+recorrelated or refit, the new results are only written to the spectrum
+header if a quality flag (y=OK, n=bad, j=questionable) is set.
+
+.ih
+EXAMPLES
+To check the redshift of a single galaxy
+
+        cl> qplot galaxy
+
+To check redshifts for a whole night's worth of galaxy spectra:
+
+        cl> qplot @nite1.ls
+
+.ih
+BUGS
+.endhelp

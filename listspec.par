@@ -1,0 +1,24 @@
+# listspec parameter file
+input,s,a,"",,,Input images
+specext,i,h,0,,,Spectrum extension number in multiextension FITS image
+specnum,i,h,0,,,Spectrum number in multispec image
+specband,i,h,0,,,Spectrum band in multispec image
+specdir,s,h,"",,,Directory for input spectra
+pix1,i,h,INDEF,,,First pixel to list
+pix2,i,h,INDEF,,,Last pixel to list
+lambda1,r,h,INDEF,,,Starting wavelength in Angstroms to list
+lambda2,r,h,INDEF,,,Ending wavelength in Angstroms to list
+logwav,b,h,no,,,Print log wavelength instead of wavelength
+renormalize,r,h,0.0,,,Renormalize data to this number (neg mean  pos max)
+printlim,b,h,no,,,Print values at only pix1 and pix2 if yes else pixels between
+columns,s,h,"wf",,,Print n=ap p=pixel w=wavelength f=flux v=velocity d=deltawave
+numform,s,h,"%3d",,,IRAF format for spectrum number/aperture/order
+pixform,s,h,"%4d",,,IRAF format for spectrum pixel number
+fluxform,s,h,"%g",,,IRAF format for flux output
+velform,s,h,"%9.3f",,,IRAF format for velocity per pixel
+waveform,s,h,"%9.3f",,,IRAF format for wavelength/log wavelength output
+outfile,b,h,no,,,Write list to output file x.wav (yes or no)
+heading,b,h,no,,,Include one line description at start of each file (yes or no)
+nsum,i,h,1,,,"Number of pixels to sum across dispersion"
+verbose,b,h,no,,,Print one line about each file listed (yes or no)
+debug,b,h,no,,,Print extra information for debugging (yes or no)

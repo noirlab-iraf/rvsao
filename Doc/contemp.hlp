@@ -1,0 +1,55 @@
+.help contemp Oct95 template
+.ih
+NAME
+contemp -- Parameter set for continuum removal
+.ih
+USAGE
+contemp
+.ih
+PARAMETERS
+.ls c_interactive no
+Fit continuum interactively (yes or no).  If yes, a graph of the spectrum
+and the continuum fit is plotted to stdgraph, with rejected points flagged.
+"q" accepts the fit and continues the main task, "?" prints options,
+"d" deletes points, "u" undeletes points, "f" refits and redraws the data.
+.le
+.ls c_sample "*"
+Sample of points to use in fit. "*" = all.
+.ls c_function spline3
+Continuum fitting function (spline3 or legendre or chebyshev or spline1)
+.ls naverage 1
+Number of points in sample averaging
+.ls order 1
+Order of fitting function
+.ls s_low_reject 2.
+Spectrum continuum fit minimum acceptance limit in sigma of fit
+.ls s_high_reject 2.
+Spectrum continuum fit maximum acceptance limit in sigma of fit
+.ls t_low_reject 2.
+Template continuum fit minimum acceptance limit in sigma of fit
+.ls t_high_reject 2.
+Template continuum fit maximum acceptance limit in sigma of fit
+.ls niterate 10
+Number of rejection iterations
+.ls grow 1.
+Rejection growing radius
+.le
+ 
+.ih
+DESCRIPTION
+
+\fIcontemp\fR sets the parameters to be used to fit the continuum of
+spectra being summed to make a template by \fIsumtemp\fR.  It can also
+be use to fit the continuum of the resulting template spectrum.  How the
+continuum is removed is controlled by parameters in the \fIsumtemp\fR
+task.  This paarameter set is basd on \fIrvsao.contpars\fR.
+ 
+.ih
+EXAMPLE
+To set continuum fit parameters,
+ 
+	rv> contemp
+ 
+.ih
+ 
+.endhelp

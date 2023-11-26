@@ -1,0 +1,15 @@
+# CONTPARS - Parameter set for continuum and line removal (RVSAO 2.3)
+
+c_interactive,b,h,no,,,"Fit continuum interactively?"
+c_sample,s,h,"*",,,"Sample of points to use in fit"
+c_function,s,h,"spline3","spline3|legendre|chebyshev|spline1",,"Fitting function
+      (spline3|legendre|chebyshev|spline1)"
+naverage,i,h,1,,,"Number of points in sample averaging"
+order,i,h,10,1,,"Order of fitting function"
+s_low_reject,r,h,2.,0.,,"Spectrum continuum low rejection in sigma of fit"
+s_high_reject,r,h,2.,0.,,"Spectrum continuum high rejection in sigma of fit"
+t_low_reject,r,h,2.,0.,,"Template continuum low rejection in sigma of fit"
+t_high_reject,r,h,2.,0.,,"Template continuum high rejection in sigma of fit"
+niterate,i,h,10,0,,"Number of rejection iterations"
+grow,r,h,1.,0.,,"Rejection growing radius"
+mode,s,h,"ql"

@@ -1,0 +1,51 @@
+Parameter file for PLANET, version 1.6, March, 2001
+Doug Mink, Harvard-Smithsonian Center for Astrophysics, dmink@cfa.harvard.edu
+
+EPHDIR='/home/mink/Map/ephemerides'	/ Ephemeris directory
+HELPDIR='/home/mink/Map/planet'		/ Directory for online help
+OBSDIR='/home/mink/Map/ephemerides'	/ Directory for observatory coords
+PLANET='SUN'				/ Planet
+DSTART=2005.1112			/ Date to start (yyyy.mmdd)
+TSTART=0.16579				/ Time to start (hh.mmss)
+EPHTIME=N				/ Ephemeris time (DT) (y or n)
+EPHEMERIS='DE-405'			/ Ephemeris to use (DE-130 or DE-405)
+COORTYPE='J2000 EQUATORIAL'		/ Output coordinate system
+COORTOP=T				/ Topocentric (y or n)
+DLENGTH=0				/ Duration of time loop in days
+TLENGTH=0.				/ Duration of time loop in hours
+DLOOP=1					/ Increment in time loop in days
+TLOOP=0.				/ Increment in time loop in hours
+DIAG=T					/ Diagnostic printout
+IDIAG=1					/ Degree of diagnostic printout (2=all)
+FORMDATE=0				/ Date format code
+FORMTIME=2				/ Time format code
+READTIME=F
+READCOOR=F
+FORMPAGE=F
+WRITEEPH=F
+TIMEFILE='0'
+COORFILE='0'
+LOGFILE='test'
+FONLY=N					/ Output to file LOGFILE only (Y or N)
+COORSAT=N				/ Coordinates for planet satellite
+OBSERVATORY='MTHO'			/ Observatory three-letter code
+COORPLAN=N
+INFILE='-'				/ Input file of times
+UNIXCOM='reset'
+FAPP=Y
+PLDIF=F
+DPRA=0.
+DPDEC=0.
+YEARDAY=0
+DENSP=1.5
+DENSC=1.5
+ALBP=1.
+ALBC=1.
+DLONG0=43.
+NDECRA=3
+PRINTRAD=F
+FORMLAB=0
+PARMFILE='planet.par'
+FORMAT=COLON
+RADVEL=T
+END

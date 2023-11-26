@@ -1,0 +1,84 @@
+.help qplotc May2007 rvsao
+.ih
+NAME
+qplotc -- Use EMSAO or XCSAO to plot emission and absorption lines already
+found in a spectrum file or list of spectra
+.ih
+USAGE
+qplotc spectra
+.ih
+PARAMETERS
+
+.ls spectra = ""
+List of file names of spectra to analyze. @filename indicates list should
+come from file filename. As of version 1.3, apertures of multispec
+spectrum files can be entered as numbers, lists, or ranges enclosed in
+brackets after each file name in the list or file.  This parameter is
+directly passed to the task chosen below.
+.le
+.ls qtask = "xcsao"
+Task to run (xcsao or emsao)"}
+.le
+.ls velplot = "combination"   
+Velocity to plot (combination or emission or correlation
+.le
+.ls dispmode = 4
+Format in which to display summary page on an interactive display device
+and on the hard-copy device plotter. If the format code is negated, the
+spectrum is plotted with the intensity scaled from zero rather than the
+spectrum minimum.  2 or 4 are best for qplotting, although 3 and 5 will
+give better resolution of the spectrum.  cursor zoom works in all 4 of
+these modes.
+
+=-1 Display all of spectrum, with portion used marked, scaled from an
+intensity of zero, and cross-correlation with template information.
+
+=0 Display only part of spectrum used in correlation and cross-correlation
+with template information. (2.0)
+
+=1 Display all of spectrum, with portion used marked, and cross-correlation
+with template information.
+
+=2 Display spectrum with absorption and known emission lines labelled
+and both template and emission line information.
+
+=3 Display spectrum with absorption and known emission lines labelled
+using the entire display without the table of results
+
+=4 Display continuum-subtracted spectrum with absorption and known emission
+lines labelled and tables of template and emission line information.
+
+=5 Display continuum-subtracted spectrum with absorption and known emission
+lines labelled using the entire display without the table of results. 
+.le
+ 
+.ih
+DESCRIPTION
+QPLOT runs either XCSAO without correlating or EMSAO with finding new
+lines, then displays the spectrum with lines labelled and
+previously-obtained results.  These results should have been written
+to the image headers using save_vel=yes when XCSAO and EMSAO were run.
+The results are plotted by default in display mode 4 which displays the
+spectrum with the continuum fit subtracted and lines in the bad line list
+removed, if xcsao.fixbad=yes or emsao.fixbad=yes, as appropriate.
+The cursor mode is turned on, so that initial conditions can be changed
+(such as a new redshift guess or deleted cosmic ray) and the program
+(XCSAO or EMSAO) can be rerun.  The main reason for using QPLOT is to
+set a quality flag in the spectrum image header.  If the task is not
+rerun, only the summary information is rewritten.  If the spectrum is
+recorrelated or refit, the new results are only written to the spectrum
+header if a quality flag (y=OK, n=bad, j=questionable) is set.
+
+.ih
+EXAMPLES
+To check the redshift of a single galaxy
+
+        cl> qplotc galaxy
+
+To check redshifts for a whole night's worth of galaxy spectra:
+
+        cl> qplotc @nite1.ls
+
+.ih
+BUGS
+.endhelp

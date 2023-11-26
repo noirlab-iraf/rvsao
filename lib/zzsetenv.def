@@ -1,0 +1,4 @@
+# Global environment definitions for the SAO radial velocity package.
+
+set	rvsaobin	= "rvsao$bin(arch)/"
+set	rvsaolib	= "rvsao$lib/"

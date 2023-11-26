@@ -1,0 +1,30 @@
+RVSAO spectrum cross-correlation subroutines
+
+aspart.x	Compute asymmetric noise component
+buffers.x	Various vector manipulation subroutines
+correlate.x	Various subroutines to perform correlations and filter them
+earlin.x	Polynomial fitting subroutine
+pkfitc.x	Fit cos(x)/(1+x^2) to correlation peak
+pkfitp.x	Fit parabola to correlation peak
+pkfitq.x	Fit quartic to correlation peak
+pknum.x		Count peaks in correlation
+pkwidth.x	Find approximate width of correlation peak
+plotsubs.x	Subroutines to plot the summary page
+t_xcsao.x	Main cross-correlation program XCSAO
+xcarch.x	Write SAO TDC archive correlation record to a file
+xcfile.x	Save the cross-correlation function to a file
+xcmin.x		Fitting routines for pkfitc
+xcorfit.x	Cross-correlation subroutine
+xcplot.x	Plot correlation results to display and/or plotter
+xcrslts.x	Print correlation results in any of various formats
+
+emv.h		Header for emission line subroutines (used for line marking)
+fquot.h		Header for all radial velocity tasks
+shdr.h		Header for onedspect spectrum header
+
+ansum.com	Common for SAO TDC archive analysis summary record
+corr.com	Common for SAO TDC archive correlation record
+emv.com		Common for emission line parameters
+fquot.com	Common for radial velocity parameters and results
+getim.com	Common for spectrum parameters read from IRAF image header
+results.com	Common for XCSAO results

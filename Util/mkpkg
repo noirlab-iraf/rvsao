@@ -1,0 +1,82 @@
+# File rvsao/Util/mkpkg
+# May 2, 2014
+# Make RVSAO library utilities
+ 
+$checkout librv.a ../bin
+$update	librv.a
+$checkin librv.a ../bin
+$exit
+
+librv.a:
+	t_bcvcorr.x	<imhdr.h> <fset.h> <imhdr.h> <imio.h>
+	compbcv.x	<imhdr.h> rvsao.h rvsao.com <fset.h>
+	ranges.x
+	juldate.x	<imhdr.h>
+	getimage.x	<imhdr.h> <smw.h>
+	clsimage.x	<imhdr.h> <smw.h>
+	t_listspec.x	<imhdr.h> <smw.h>
+	t_pix2wl.x	<imhdr.h> <smw.h>
+	t_wl2pix.x	<imhdr.h> <smw.h>
+	gettemp.x	<imhdr.h> <smw.h> rvsao.h rvsao.com
+	getspec.x	<smw.h> rvsao.h rvsao.com
+	putspec.x	<error.h> <imhdr.h> <imset.h> <fio.h> <mach.h> <fset.h>
+	getsky.x	rvsao.h rvsao.com
+	imgpar.x	<syserr.h> <ctype.h>
+	plotspec.x	rvsao.h rvsao.com <gset.h> <pkg/gtools.h>
+	plotsum.x	rvsao.h rvsao.com <gset.h> <pkg/gtools.h>
+	vcombine.x	rvsao.h rvsao.com
+	vhead.x		rvsao.h emv.h rvsao.com results.com emv.com
+	writetemp.x	<error.h> <imhdr.h> <imset.h> <fio.h> <mach.h> <fset.h>
+	replot.x
+	legendre.x
+	invert.x
+	icsubcon.x	contin.h contin.com rvsao.h rvsao.com emv.h emv.com
+	contpars.x	contin.h contin.com
+	contsum.x	contin.h contin.com
+	apodize.x	rvsao.h rvsao.com emv.h emv.com
+	arc_w2p.x
+	fourm.x
+	smooth.x
+	gsmooth.x
+	matinv.x
+	polfit.x
+	bcv.f
+	t_velset.x	<imhdr.h> <error.h> <time.h>
+	velsubs.x	<imhdr.h> <error.h> <time.h>
+	t_wlrange.x	<imhdr.h> <imio.h> <fset.h> rvsao.h rvsao.com sum.com
+	wlrange.x	<imhdr.h> <imio.h> <fset.h> rvsao.com sum.com
+	rebin.x		<smw.h> <mach.h> <ctype.h> <error.h> <imhdr.h> <fset.h> <math/iminterp.h> <math/curfit.h>
+	wlcon.x		<smw.h> rvsao.h rvsao.com rvmwcs.com
+	loghead.x	rvsao.h
+	plotutil.x	<gset.h> <gio.h>
+	logtime.x	<time.h>
+	fill.x
+	zero.x
+	median.x
+	;
+
+# Mar 13 1995	Add CLSIMAGE
+# Jun 30 1995	Add BCVCORR
+# Jul 19 1995	Add VHEAD
+# Oct  3 1995	Add LOGTIME
+
+# Jun 25 1996	Update SHDR to 2.10.4 version
+
+# Jan 30 1997	Add FILL to file regions around bad lines
+# Oct  6 1997	Drop all local versions of SMW subroutines
+# Apr 22 1998	Drop use of getim.com
+# Jun 10 1999	Add zero.x to zero bad lines
+
+# Apr 26 2001	Add contsum.x and writetemp.x from former Makespec directory
+
+# Mar 23 2005	Add plotsum.x and reploty.x to pre-scale plots
+
+# Sep 18 2006	Added reploty.x to replot.x
+
+# Mar 25 2008	Add t_listspec.x
+# Aug  5 2008	Add median.x
+# Aug 12 2008	Add t_pix2wl.x and t_wl2pix.x
+
+# Jun 15 2009	Add wlrange.x from Sumspec and t_wlrange.x
+#
+# May  2 2014	Add putspec.x

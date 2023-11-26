@@ -1,0 +1,8 @@
+# Root task entry for the SAO radial velocity package help tree.
+# Defines `r2rvsao' as both a task and a package in the r2rvsao help database.
+
+r2rvsao		men  = r2rvsao$r2rvsao.men,
+		hlp  = r2rvsao$r2rvsao.men,
+		sys  = r2rvsao$r2rvsao.hlp,
+		pkg  = r2rvsao$r2rvsao.hd,
+		src  = r2rvsao$r2rvsao.cl

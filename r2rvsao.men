@@ -1,0 +1,25 @@
+         emsao - Find redshifts by measuring emission line shifts
+        pemsao - Fit an emission line in a spectrum and save results as parameters
+         xcsao - Find redshifts by cross-correlating spectra with templates
+        pxcsao - Cross-correlate spectra with templates and save results as parameters
+       eqwidth - Compute equivalent widths for specified lines in spectra
+      contpars - Set parameters for continuum removal
+       sumspec - Combine multiple spectra into an assigned-velocity spectrum
+       contsum - Set continuum removal parameters for template making
+      linespec - Make a spectrum from a list of emission and/or absorption lines
+      listspec - Print an ASCII list of a spectrum with  optional per pixel info
+
+       bcvcorr - Compute radial velocity correction to solar system barycenter
+        emplot - Plot a spectrum with emission velocity and labelled lines
+        pix2wl - Compute the wavelength for a specific pixel in a spectrum
+         qplot - Check results of previously-run xcsao and emsao
+        qplotc - Check results of previously-run xcsao and emsao (-continuum and bad lines)
+       relearn - Set parameter values in parameter file of new version
+                 of a task using the values in the current parameter file
+        setvel - Shift a single spectrum to a several radial velocities
+       skyplot - Plot a night sky spectrum with labelled emission lines
+        velset - Set velocity by modifying starting wavelength
+        wl2pix - Compute the pixel for a specific wavelength in a spectrum
+       wlrange - Find the overlapping wavelength range in a list of spectra
+        xcplot - Plot a spectrum with xc velocity and labelled lines
+          zvel - Run emsao and xcsao on list of spectra

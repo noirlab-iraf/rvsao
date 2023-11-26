@@ -1,0 +1,6 @@
+# Root help directory for the SAO radial velocity package.  This dummy
+# package is necessary in order to have `rvsao' appear as a module in some
+# package, so that the user can type "help rvsao" (with the `rvsao' given
+# as a task).
+
+_rvsao		pkg = rvsao$lib/rootrvsao.hd

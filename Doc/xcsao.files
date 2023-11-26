@@ -1,0 +1,59 @@
+
+                           XCSAO
+  An IRAF package to compute cross-correlation velocities
+
+                             by
+     Doug Mink, Bill Wyatt, Guillermo Torres, Mike Kurtz
+        Harvard-Smithsonian Center for Astrophysics
+
+                        Gerry Kriss
+Center for Astrophysical Sciences, Johns Hopkins University
+
+                         John Tonry
+           Massachusetts Institute of Technology
+
+                         John Morse
+                University of North Carolina
+
+                       Stephen Levine
+                  University of Wisconsin
+
+     Here is a list of all of the SPP and Fortran routines used by
+the XCSAO package, an evolved version of Gerry Kriss's XCOR package,
+merged with peak fitting routines developed at the Center for Astrophysics.
+
+In directory Xcor:
+aspart.x      compute antisymmetric noise (called by xcorfit)
+buffers.x     various buffer routines (called by xcorfit)
+correlate.x   various correlation routines (called by xcorfit)
+earlin.x      polynomial fitting (called by pkfitp, pkfitq)
+pkfitc.x      fit cos(x)/(1+x^2) to cross-correlation (called by xcorfit)
+pkfitp.x      fit parabola to cross-correlation (called by xcorfit)
+pkfitq.x      fit quartic to cross-correlation (called by xcorfit)
+pknum.x       count peaks in cross-correlation (called by xcorfit)
+pkwidth.x     find max and width of cross-correlation (called by xcorfit,pkfit)
+plotsubs.x    summary page subwindow plotting (called by xcplot)
+rebinr.x      rebin spectrum and template (called by t_xcsao)
+t_xcsao.x     main program for cross-correlation redshifts
+xcarch.x      write SAO TDC archive records (called by t_xcsao)
+xcmin.x       fit function to data (called by pkfitc)
+xcorfit.x     compute cross-correlation and fit peak (called by t_xcsao)
+xcplot.x      Plot summary page, handle cursor interaction (called by t_xcsao)
+xcrslts.x     summarize results to log file (called by t_xcsao)
+
+In directory Util:
+apodize.x     apodize spectrum and template (called by xcorfit)
+bcv.f         compute barycentric velocity (called by compbcv)
+chopper.c     emission line removal (called by emchop)
+compbcv.x     compute barycentric velocity (called by getspec, gettemps)
+emchop.x      emission line removal (called by t_xcsao)
+fourm.x       Bill Press's fft routines (called by xcorfit)
+getimage.x    read spectrum from IRAF image file (called by getspec, gettemps)
+getspec.x     read spectrum (called by t_xcsao)
+gettemps.x    read templates (called by t_xcsao)
+imgpar.x      read parameters from IRAF image headers (called by getimage)
+matinv.x      invert matrix (called by xcmin)
+plotspec.x    plot spectrum (called by t_xcsao, xcorfit)
+polfit.x      polynomial fitting routines (called by polyfunc)
+polyfunc.c    polynomial routines (called by chopper)
+replot.x      replot current array (called by plotspec)

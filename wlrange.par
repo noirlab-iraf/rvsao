@@ -1,0 +1,33 @@
+# Parameters for WLRANGE task of IRAF package RVSAO 2.7.6
+
+# Input Spectra
+spectra,s,a,"",,,List of input spectra
+specnum,s,h,"0",,,Spectrum aperture range if multispec or 2-D file
+specband,i,h,0,,,Spectrum band if multispec file
+specdir,s,h,"",,,Directory for input spectra
+
+# Wavelength limits (values not set computed from input spectra)
+st_lambda,r,h,INDEF,,,Starting wavelength in Angstroms to force
+end_lambda,r,h,INDEF,,,Ending wavelength in Angstroms to force
+pix_lambda,r,h,INDEF,,,Wavelength per pixel in Angstroms to force
+npts,i,h,INDEF,,,Number of pixels for output spectrum to force
+
+# Wavelength limits returned
+wl1,r,h,INDEF,,,Reddest wavelength in Angstroms (output)
+wl2,r,h,INDEF,,,Bluest wavelength in Angstroms (output)
+dwl,r,h,INDEF,,,Wavelength per pixel in Angstroms (output)
+npix,i,h,INDEF,,,Number of pixels (from file or set) (output)
+
+# Velocity modification
+velcomp,r,h,INDEF,,,Redshift composite velocity in km/sec (INDEF=ignore)
+zcomp,r,h,INDEF,,,Redshift composite velocity in dlambda/lambda (overrides velcomp)
+svel_corr,s,h,"none",none|file|heliocentric|barycentric|hfile,,"Spectrum velocity correction (none,file,helio,bary,hfile)"
+
+nsum,i,h,1,,,"Number of pixels to sum across dispersion"
+
+# Debugging
+verbose,b,h,yes,,,Display final result (yes or no)
+debug,b,h,no,,,Display intermediate results (yes or no)
+mode,s,h,"ql",,,
+
+# Jun 15 2009	New task

@@ -1,0 +1,4 @@
+	    if (savespec) {
+		call putspec (specim, mspec, spectrum, TY_REAL, debug)
+		savespec = FALSE
+		}

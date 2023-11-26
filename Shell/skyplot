@@ -1,0 +1,100 @@
+#!/data/oir/IRAF2.14.1/iraf/bin.redhat/ecl.e -f
+# This script runs RVSAO.SKYPLOT from a Unix command line
+# Replace the path in the first line with one appropriate to your machine
+# March 31, 2009
+# By Doug Mink
+
+string uprm, hm, tempcom
+
+# Set machine type appropriately
+set arch=".redhat"
+
+# Set the terminal type.
+if (envget("TERM") == "sun") {
+    stty gterm
+} else if (envget("TERM") == "xterm") {
+    stty xterm
+} else if (envget("TERM") == "network") {
+    stty vt100
+} else {
+    stty xterm
+}
+
+# Set the IRAF home and parameter directories
+if (defvar("irafhome")) {
+    hm = envget("irafhome")
+    i = strlen(hm)
+    if (substr(hm, i, i) == "/")  
+        set (home = hm)
+    else
+        set (home = hm // "/")
+    set uparm = "home$uparm/"
+    }
+else {
+    hm = envget ("HOME")
+    set (home = hm // "/IRAF/")
+    set uparm = "home$uparm/"
+    }
+
+if (defvar("UPARM")) {
+    uprm = envget("UPARM")
+    i = strlen(uprm)
+    if (substr(uprm, i, i) == "/")  
+        set (uparm = uprm)
+    else
+        set (uparm = uprm // "/")
+  }
+
+# Set the user name which may appear on graphical output
+if (envget("USER") != "") {
+    set user = envget("USER")
+    }
+
+if (args == "") {
+    print ("SKYPLOT: Plot a spectrum labelling night sky emission lines")
+    print ("usage: skyplot spectrum [other arguments]")
+    print ("       skyplot help  for IRAF help")
+    print ("       skyplot dpar  to dump parameters")
+    print ("       skyplot epar  to edit parameters")
+    print ("       skyplot lpar  to list parameters")
+    }
+else if (args == "help") {
+    tempcom = mktemp ("tempskyplot")
+    print ("help skyplot", > tempcom)
+    cl (< tempcom)
+    delete (tempcom)
+    }
+
+# Edit skyplot parameters using epar
+else if (args == "epar") {
+    tempcom = mktemp ("tempskyplot")
+    print ("rvsao motd-\nepar skyplot", > tempcom)
+    cl (< tempcom)
+    delete (tempcom)
+    }
+
+# Dump skyplot parameters using dpar
+else if (args == "dpar") {
+    tempcom = mktemp ("tempskyplot")
+    print ("rvsao motd-\ndpar skyplot", > tempcom)
+    cl (< tempcom)
+    delete (tempcom)
+    }
+
+# List skyplot parameters using lpar
+else if (args == "lpar") {
+    tempcom = mktemp ("tempskyplot")
+    print ("rvsao motd-\nlpar skyplot", > tempcom)
+    cl (< tempcom)
+    delete (tempcom)
+    }
+
+# Execute skyplot using the arguments on the command line
+else {
+    tempcom = mktemp ("tempskyplot")
+    printf ("rvsao motd-\nskyplot %s\n", args, > tempcom)
+    cl (< tempcom)
+    delete (tempcom)
+    }
+logout
+

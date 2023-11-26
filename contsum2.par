@@ -1,0 +1,14 @@
+# CONTSUM2 - Second parameter set for SUMSPEC continuum removal (RVSAO 2.3)
+
+c_interactive,b,h,no,,,"Fit continuum interactively?"
+c_sample,s,h,"*",,,"Sample of points to use in fit"
+c_start,i,h,1,,,"First pixel for this continuum model"
+c_function,s,h,"spline3","spline3|legendre|chebyshev|spline1",,"Fitting function
+      (spline3|legendre|chebyshev|spline1)"
+naverage,i,h,1,,,"Number of points in sample averaging"
+order,i,h,10,1,,"Order of fitting function"
+s_low_reject,r,h,2.,0.,,"Input spectrum continuum low rejection in sigma of fit"
+s_high_reject,r,h,2.,0.,,"Input spectrum continuum high rejection in sigma of fit"
+niterate,i,h,10,0,,"Number of rejection iterations"
+grow,r,h,1.,0.,,"Rejection growing radius"
+mode,s,h,"ql"

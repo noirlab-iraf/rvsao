@@ -1,0 +1,40 @@
+RVSAO Utility subroutines
+
+apodize.x	Apodize spectrum
+bcv.f		Compute barycentric velocity correction for spectrum
+compbcv.x	Interface to barycentric correction subroutine
+contpars.x	Subroutines to deal with ICFIT continuum removal
+fourm.x		Fourier transform based on Press, et al.
+getimage.x	Read a spectrum from an IRAF file
+getsky.x	Read a sky spectrum from an IRAF file
+getspec.x	Read an object specrum from an IRAF file
+gettemp.x	Read a template spectrum from an IRAF file
+gettemps.x	Read a list of templates from IRAF files
+icsubcon.x	Remove continuum and emission lines using ICFIT routines
+imgpar.x	Get parameters from an IRAF image header
+invert.x	Invert a matrix
+legendre.x	Fit and compute Legendre polynomials
+logtime.x	Return current time as a string for HISTORY
+matinv.x	Invert a matrix
+plotspec.x	Plot a spectrum, includes cursor interaction
+polfit.x	Fit a polynomial to a vector
+ranges.x	Decode ranges of numbers from a string
+rebinl.x	Rebin a spectrum into log wavelength
+replot.x	Plot a vector (called by plotspec)
+shdr.x		Modified onedspec spectrum header subroutines
+smooth.x	1-2-1-smooth a vector
+subcon.x	Remove a polynomial continuum from a spectrum
+units.x		Onedspec units subroutines
+vcombine.x	Combine emission line and cross-correlation velocities
+
+contin.h	Header for continuum pset
+emv.h		Header for emission line subroutines
+fquot.h		Header for all radial velocity tasks
+shdr.h		Header for onedspec spectrum header
+units.h		Header for onedspec units
+
+contin.com	Common for continuum fitting parameters
+emv.com		Common for emission line parameters and results
+fquot.com	Common for radial velocity parameters and results
+getim.com	Common for spectrum parameters read from IRAF image header
+rvmwcs.com	Common for spectrum wavelength parameters

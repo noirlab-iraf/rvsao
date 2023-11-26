@@ -1,0 +1,103 @@
+To install this package in your local IRAF system, take the following steps:
+ 
+1)	The package is distributed as a tar archive; IRAF is distributed
+	with a tar reader.  The tar archive may be obtained by magnetic
+	tape or anonymous ftp.  For magnetic tape go to step [2] and when
+	reading the tar archive simply mount the tape and use the tape
+	device name for the archive name in step [4].  To obtain the package
+	via ftp (assuming a UNIX computer):
+
+	    % ftp cfa-ftp.harvard.edu
+	    login: anonymous
+	    password: [your user name]
+	    ftp> cd pub/iraf
+	    ftp> get rvsao-2.8.2.readme
+	    ftp> binary
+	    ftp> get rvsao-2.8.2.tar.gz
+	    ftp> quit
+	    % ls -l
+	    -rw-r--r--  1 mink          xxxx xxx xx xx:xx rvsao-2.8.2.readme
+	    -rw-r--r--  1 mink        xxxxxx xxx xx xx:xx rvsao-2.8.2.tar.gz
+	    %
+
+2)	Create a directory to contain the RVSAO external package files.  This
+	directory should be outside the IRAF directory tree and must be owned
+	by the IRAF account.  In the following examples, this root directory
+	is /local/rvsao/.  Make the appropriate file name substitutions for
+        your site.
+ 
+3)	Log in as IRAF and edit the extern.pkg file in the hlib directory to
+	define the package to the CL.  From the IRAF account, outside the CL,
+	you can move to this directory with the command:
+
+            % cd $hlib
+
+	Define the environment variable rvsao to be the pathname to the rvsao
+	root directory.  UNIX pathnames must be terminated with a '/'.
+	Edit extern.pkg to include:
+
+            reset rvsao	= <directory>/rvsao-2.8.2/
+            task  rvsao.pkg   = rvsao$rvsao.cl
+
+	Near the end of the hlib$extern.pkg file, update the definition
+	of helpdb so it includes the rvsao help database, copying the syntax
+	already used in the string.  Add this line before the line containing
+	a closing quote:
+ 
+	    ,rvsao$lib/helpdb.mip\
+
+4)      Add to hlib$clpackage.men the package description:
+ 
+            rvsao - Radial velocity package from SAO
+ 
+5)	Unpack the tar file into the RVSAO root directory.
+
+	On a UNIX system, where ftpdir is the pathname of the directory
+	into which the package was ftp'ed and rvsao is the RVSAO root
+	directory:
+	    % cd $rvsao
+	    % cd ..
+	    % zcat $ftpdir/rvsao-2.8.2.tar.gz | tar xvf -
+
+	The archive file can be deleted once the package has been
+	successfully installed.
+ 
+6)      Restart IRAF and "cd rvsao" or "cd r2rvsao".
+
+7)	Using the appropriate mkpkg command below, symbolically link the
+	appropriate binary directory to bin/.
+	(bin/ is originally linked to bin.generic/ for distribution.)
+
+        On a SPARCstation running Solaris, type
+	    cl> mkpkg ssun
+
+        On a PC running Redhat Linux, type
+	    cl> mkpkg redhat
+
+        On an Apple Macintosh running OS X on an Intel processor, type
+	    cl> mkpkg macintel
+
+        On an Apple Macintosh running OS X, type
+	    cl> mkpkg macosx
+
+        On a PC running Cygwin, type
+	    cl> mkpkg cygwin
+
+        On a PC running Linux, type
+	    cl> mkpkg linux
+
+	For other architectures, make a directory of the proper bin.{arch}
+	name, and link it to bin
+
+8)      Make the package by typing
+	    cl> mkpkg update >&spool
+
+	The spool file should be reviewed upon completion to make sure
+	there were no errors.
+
+9)	In addition to the IRAF help pages for each task, there is
+	up-to-date hypertext help is available on the World Wide Web at
+	http://tdc-www.harvard.edu/iraf/rvsao/
+
+-Jessica Mink http://tdc-www.harvard.edu/mink
+

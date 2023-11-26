@@ -1,0 +1,28 @@
+RVSAO emission line velocity subroutines
+
+emarch.x	Write SAO TDC archive emission line record to a file
+emeplot.x	Plot spectrum and mark emission and absorption lines
+emfind.x	Find all lines within section of spectrum which meet criteria
+emfit.x		Compute radial velocity from emission line shift
+emgauss.x	Gaussian EMMIN calling program and computation subroutines
+emguess.x	Make initial velocity guess by examining spectrum
+eminit.x	Read emission and absorption line information from files
+emlfit.x	Fit gaussians to all lines found
+emmin.x		Fitting subroutine
+emplot.x	Cursor handling subroutine
+emrslts.x	Display results of emission line fits to display and/or file
+emsrch.x	Find emission lines in spectrum
+emvfit.x	Combine information from multiple emission lines for velocity
+t_emsao.x	Main emission line program EMSAO
+
+emv.h		Header for emission line subroutines
+fquot.h		Header for all radial velocity tasks
+shdr.h		Header for spectrum header
+
+ansum.com	Common for SAO TDC archive analysis summary record
+contin.com	Common for continuum fitting parameters
+emg.com		Common for gaussian fitting parameters
+emlines.com	Common for SAO TDC archive emission line record
+emv.com		Common for emission line parameters and results
+fquot.com	Common for radial velocity parameters and results
+getim.com	Common for spectrum parameters read from IRAF image header

@@ -1,0 +1,70 @@
+# Parameters for EMSAO task of IRAF package RVSAO 2.6
+
+# Spectra
+spectra,s,a,"",,,List of input spectra
+specnum,s,h,"0",,,Spectrum aperture range if multispec or 2-D file
+specband,i,h,0,,,Spectrum band if multispec
+skynum,s,h,"0",,,Sky aperture range if multispec or 2-D file
+skyband,i,h,0,,,Sky band if multispec file
+specdir,s,h,"",,,Directory for input spectra
+linefit,b,h,yes,,,Find and fit emission lines (yes or no)
+
+# Process
+fixbad,b,h,no,,,Eliminate portions of spectrum with bad lines (yes or no)
+badlines,s,h,"badlines.dat",,,Lines to eliminate from spectrum
+renormalize,b,h,no,,,Renormalize spectrum before fitting (yes or no)
+
+# Search
+st_lambda,r,h,INDEF,,,Starting wavelength in Angstroms to save
+end_lambda,r,h,INDEF,,,Ending wavelength in Angstroms to save
+nsmooth,i,h,10,,,Number of times to smooth spectrum for search and plot
+vel_init,s,h,"search",|correlation|emission|combination|search|guess|zguess|cortemp|,,Initial velocity (search guess corr em file)
+czguess,r,h,0.0,,,Initial guess for Cz or z
+cortemp,s,h,"",,,Specific cross-correlation template for initial velocity
+wspan,r,h,10.,,,Wavelength to search around redshifted line center in Angstroms
+linesig,r,h,1.5,,,Number of standard deviations above continuum to be line
+emsearch,s,h,"emsearch.dat",,,List of strongest emission lines for search
+emlines,s,h,"emlines.dat",,,Emission line list
+linedir,s,h,"rvsao$lib/",,,Directory for line lists
+
+# Fit
+npfit,i,h,2,,,Number of pixels to fit line peak
+nlcont,i,h,1,0,3,Number of coeefficients in line continuum fit
+esmooth,i,h,0,,,Number of times to smooth spectrum for emission line fit
+emcombine,s,h,"emcomb.dat",,,Combination fit emission line list
+mincont,r,h,0.0,,,If continuum is greater than this compute equivalent width
+
+# Combine Results
+lwmin,r,h,0.4,,,Minimum fraction of mean line width for individual line
+lwmax,r,h,1.7,,,Maximum fraction of mean line width for individual line
+lsmin,r,h,1.0,,,Minimum equivalent width in sigma for individual line
+sigline,r,h,0.0,,,Velocity error if single line found (0 for gaussian fit error)
+disperr,r,h,.01,,,RMS dispersion error in Angstroms
+vel_corr,s,h,"barycentric",none|file|heliocentric|barycentric|hfile,,Spectrum velocity correction
+
+# Save Results
+report_mode,i,h,1,,,Report mode (1=normal 2=one-line)
+archive,b,h,no,,,Save results in binary archive record (yes or no)
+save_vel,b,h,no,,,Save results in IRAF data file header (yes or no)
+verbose,b,h,yes,,,Displays results on terminal
+logfiles,s,h,"STDOUT,emsao.log",,,List of log files
+
+# Display Results
+device,s,h,"stdgraph",,,Display output device
+hardcopy,b,h,no,,,Automatic hardcopy of results (yes or no)
+displot,b,h,yes,,,Plot results on terminal (yes or no)
+plotter,s,h,"stdplot",,,Hardcopy output device
+dispmode,i,h,2,,,Graphical display mode (2=with line list 3=full screen)
+vel_plot,s,h,"emission",correlation|emission|combination,,Velocity to plot
+curmode,b,h,yes,,,Wait for cursor commands after plotting (yes or no)
+dispem,b,h,yes,,,Label emission lines on spectrum plot (yes or no)
+dispabs,b,h,yes,,,Label absorption lines on spectrum plot (yes or no)
+ablines,s,h,"ablines.dat",,,Absorption line list
+
+# Debug
+obj_plot,b,h,no,,,Plot the object spectrum
+contsub_plot,b,h,no,,,Plot the continuum-subtracted data
+debug,b,h,no,,,Displays lots of (i.e. too many) intermediate results
+nsum,i,h,1,,,"Number of pixels to sum across dispersion"
+cursor,*gcur,h,"",,,Graphics cursor input
+mode,s,h,"ql",,,
