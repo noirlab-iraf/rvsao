@@ -24,8 +24,7 @@ nrelink:
 	$checkin librv.a bin
 	$omake	x_rvsao.x
 	$move bin/librv.a librv.a
-#	$link	x_rvsao.o $(LIBS) -o xx_rvsao.e
-	$link	-z x_rvsao.o $(LIBS) -o xx_rvsao.e
+	$link	x_rvsao.o $(LIBS) -o xx_rvsao.e
 	$move librv.a bin/librv.a
 	$delete x_rvsao.o
 	;
@@ -40,51 +39,49 @@ librv.a:
 	;
 
 generic:
-        $delete bin
-        !ln -s ./bin.generic ./bin
+        $ifnfile (bin.generic)
+            !mkdir bin.generic
+        $endif
+        $verbose off
+        $set DIRS = "Util Xcsao Emsao Linespec Sumspec Eqwidth"
+        !$(hlib)/mkfloat.csh generic -d $(DIRS)
         ;
 
-ssun:
-	$delete bin
-	!ln -s ./bin.ssun ./bin
-	;
-
-redhat:
-	$delete bin
-	!ln -s ./bin.redhat ./bin
-	;
+linux:
+        $ifnfile (bin.linux)
+            !mkdir bin.linux
+        $endif
+        $verbose off
+        $set DIRS = "lib Util Xcsao Emsao Linespec Sumspec Eqwidth"
+        !$(hlib)/mkfloat.csh linux -d $(DIRS)
+        ;
 
 macosx:
-	$delete bin
-	!ln -s ./bin.macosx ./bin
-	;
+        $ifnfile (bin.macosx)
+            !mkdir bin.macosx
+        $endif
+        $verbose off
+        $set DIRS = "lib Util Xcsao Emsao Linespec Sumspec Eqwidth"
+        !$(hlib)/mkfloat.csh macosx -d $(DIRS)
+        $ifnfile (bin.macos64)
+            !ln -s bin.macosx bin.macos64
+        $endif
+        ;
 
 macintel:
-	$delete bin
-	!ln -s ./bin.macintel ./bin
-	;
-
-cygwin:
-	$delete bin
-	!ln -s ./bin.cygwin ./bin
-	;
-
-alpha:
-	$delete bin
-	!ln -s ./bin.alpha ./bin
-	;
-
-sparc:
-	$delete bin
-	!ln -s ./bin.sparc ./bin
-	;
-
-linux:
-	$delete bin
-	!ln -s ./bin.linux ./bin
-	;
+        $ifnfile (bin.macintel)
+            !mkdir bin.macintel
+        $endif
+        $verbose off
+        $set DIRS = "lib Util Xcsao Emsao Linespec Sumspec Eqwidth"
+        !$(hlib)/mkfloat.csh macintel -d $(DIRS)
+        ;
 
 linux64:
-	$delete bin
-	!ln -s ./bin.linux64 ./bin
-	;
+        $ifnfile (bin.linux64)
+            !mkdir bin.linux64
+        $endif
+        $verbose off
+        $set DIRS = "lib Util Xcsao Emsao Linespec Sumspec Eqwidth"
+        !$(hlib)/mkfloat.csh linux64 -d $(DIRS)
+        ;
